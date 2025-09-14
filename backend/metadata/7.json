@@ -1,0 +1,36 @@
+{
+  "name": "Сараа - Olympiad Certificate",
+  "description": "Сараа нь Физик олимпиад-д 2 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "external_url": "https://your-domain.com/certificate/7",
+  "attributes": [
+    {
+      "trait_type": "Student ID",
+      "value": "507f1f77bcf86cd799439012"
+    },
+    {
+      "trait_type": "Student Name",
+      "value": "Сараа"
+    },
+    {
+      "trait_type": "Email",
+      "value": "saraa@example.com"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Физик олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 2
+    },
+    {
+      "trait_type": "Score",
+      "value": 88
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    }
+  ]
+}

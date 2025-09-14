@@ -1,0 +1,44 @@
+[
+  {
+    "tokenId": 3,
+    "student": {
+      "address": "0xeEC90dfAaa4c18669824F86d72aEc65bec0C429e",
+      "name": "Батбаяр",
+      "olympiad": "Математик олимпиад",
+      "rank": 1,
+      "year": 2024,
+      "school": "Улаанбаатар хотын 1-р сургууль"
+    },
+    "transactionHash": "0x80b86fc43f32e61e490796575eec0dde92a326693725c4993ffaecb74d44cfbd",
+    "gasUsed": "24060",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/3.json"
+  },
+  {
+    "tokenId": 4,
+    "student": {
+      "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "name": "Сараа",
+      "olympiad": "Физик олимпиад",
+      "rank": 2,
+      "year": 2024,
+      "school": "Улаанбаатар хотын 2-р сургууль"
+    },
+    "transactionHash": "0xea2dce2c24fddf5dfa719308a8fc3268433e14147473d3a8ba97b68977689f91",
+    "gasUsed": "24060",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/4.json"
+  },
+  {
+    "tokenId": 5,
+    "student": {
+      "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "name": "Төгсбаяр",
+      "olympiad": "Хими олимпиад",
+      "rank": 3,
+      "year": 2024,
+      "school": "Улаанбаатар хотын 3-р сургууль"
+    },
+    "transactionHash": "0xd6a4d475eec3eb8f3963d61d6d8dce3231d3d38d16b264c28e17e3ada2b4f6cb",
+    "gasUsed": "24030",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/5.json"
+  }
+]

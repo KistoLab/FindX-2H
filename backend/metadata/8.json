@@ -1,0 +1,36 @@
+{
+  "name": "Төгсбаяр - Olympiad Certificate",
+  "description": "Төгсбаяр нь Хими олимпиад-д 3 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "external_url": "https://your-domain.com/certificate/8",
+  "attributes": [
+    {
+      "trait_type": "Student ID",
+      "value": "507f1f77bcf86cd799439013"
+    },
+    {
+      "trait_type": "Student Name",
+      "value": "Төгсбаяр"
+    },
+    {
+      "trait_type": "Email",
+      "value": "tugsbayar@example.com"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Хими олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 3
+    },
+    {
+      "trait_type": "Score",
+      "value": 82
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    }
+  ]
+}

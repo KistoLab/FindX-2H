@@ -1,0 +1,28 @@
+{
+  "name": "Батбаяр - Математик олимпиад Certificate",
+  "description": "Батбаяр нь Математик олимпиад-д 1 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "external_url": "https://your-domain.com/certificate/3",
+  "attributes": [
+    {
+      "trait_type": "Student Name",
+      "value": "Батбаяр"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Математик олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 1
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    },
+    {
+      "trait_type": "School",
+      "value": "Улаанбаатар хотын 1-р сургууль"
+    }
+  ]
+}

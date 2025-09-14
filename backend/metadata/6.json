@@ -1,0 +1,36 @@
+{
+  "name": "Батбаяр - Olympiad Certificate",
+  "description": "Батбаяр нь Математик олимпиад-д 1 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "external_url": "https://your-domain.com/certificate/6",
+  "attributes": [
+    {
+      "trait_type": "Student ID",
+      "value": "507f1f77bcf86cd799439011"
+    },
+    {
+      "trait_type": "Student Name",
+      "value": "Батбаяр"
+    },
+    {
+      "trait_type": "Email",
+      "value": "batbayar@example.com"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Математик олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 1
+    },
+    {
+      "trait_type": "Score",
+      "value": 95
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Сараа - Физик олимпиад Certificate",
+  "description": "Сараа нь Физик олимпиад-д 2 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "attributes": [
+    {
+      "trait_type": "Student Name",
+      "value": "Сараа"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Физик олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 2
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    }
+  ]
+}

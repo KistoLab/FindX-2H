@@ -1,0 +1,23 @@
+{
+  "name": "Төгсбаяр - Хими олимпиад Certificate",
+  "description": "Төгсбаяр нь Хими олимпиад-д 3 байр эзэлсэн",
+  "image": "ipfs://QmYourImageHash/certificate.png",
+  "attributes": [
+    {
+      "trait_type": "Student Name",
+      "value": "Төгсбаяр"
+    },
+    {
+      "trait_type": "Olympiad",
+      "value": "Хими олимпиад"
+    },
+    {
+      "trait_type": "Rank",
+      "value": 3
+    },
+    {
+      "trait_type": "Year",
+      "value": 2024
+    }
+  ]
+}

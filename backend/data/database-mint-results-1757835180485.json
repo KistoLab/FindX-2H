@@ -1,0 +1,56 @@
+[
+  {
+    "tokenId": 6,
+    "student": {
+      "_id": "507f1f77bcf86cd799439011",
+      "name": "Батбаяр",
+      "email": "batbayar@example.com",
+      "walletAddress": "0xeEC90dfAaa4c18669824F86d72aEc65bec0C429e",
+      "olympiadResult": {
+        "olympiadName": "Математик олимпиад",
+        "rank": 1,
+        "score": 95,
+        "year": 2024
+      }
+    },
+    "transactionHash": "0x2cbf92054535085ceeabc9316711ff351513b86c89840c6079ec1c580b5f0b18",
+    "gasUsed": "24060",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/6.json"
+  },
+  {
+    "tokenId": 7,
+    "student": {
+      "_id": "507f1f77bcf86cd799439012",
+      "name": "Сараа",
+      "email": "saraa@example.com",
+      "walletAddress": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "olympiadResult": {
+        "olympiadName": "Физик олимпиад",
+        "rank": 2,
+        "score": 88,
+        "year": 2024
+      }
+    },
+    "transactionHash": "0x00c4ae8a0b3e3359968054768c34f68276d289fad6f2935964be02c0d4eba630",
+    "gasUsed": "24060",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/7.json"
+  },
+  {
+    "tokenId": 8,
+    "student": {
+      "_id": "507f1f77bcf86cd799439013",
+      "name": "Төгсбаяр",
+      "email": "tugsbayar@example.com",
+      "walletAddress": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "olympiadResult": {
+        "olympiadName": "Хими олимпиад",
+        "rank": 3,
+        "score": 82,
+        "year": 2024
+      }
+    },
+    "transactionHash": "0xaf4a21e7942ab4b5c3d44c8a757be4eec51ded92db3071e3b74f408e52d63263",
+    "gasUsed": "24030",
+    "metadataPath": "/Users/25LP5095/Desktop/FindX-2H/backend/metadata/8.json"
+  }
+]
