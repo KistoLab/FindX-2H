@@ -1,0 +1,37 @@
+query GetTournament($getTournamentId: ID!) {
+  getTournament(id: $getTournamentId) {
+    id
+    name
+    description
+    date
+    size
+    maxScore
+    piPoints
+    piWards
+    closedAt
+    rounds {
+      id
+      task
+      round
+      scheduleAt
+      slotA
+      slotB
+      winner
+      loser
+      tournamentId
+      status
+    }
+    participants
+    status
+    topic
+    createdAt
+    updatedAt
+    
+  }
+}
+mutation CreateTournament($tournamentInput: TournamentInput!) {
+  createTournament(tournamentInput: $tournamentInput) {
+    success
+    message
+  }
+}

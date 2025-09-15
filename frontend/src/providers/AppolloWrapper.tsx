@@ -1,31 +1,22 @@
-"use client";
+'use client';
 
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client';
+import { PropsWithChildren } from 'react';
 
-import { ReactNode } from "react";
-import { setContext } from "@apollo/client/link/context";
+const uri = process.env.NEXT_PUBLIC_BACKEND_URI ?? 'http://localhost:4200/api/graphql';
 
-const httpLink = createHttpLink({
-  uri: process.env.BACKEND_URL || "http://localhost:4000/api/graphql",
-});
-
-export const ApolloWrapper = ({ children }: { children: ReactNode }) => {
-  const authLink = setContext(async (_, { headers }) => {
-    return {
-      headers: {
-        ...headers,
-        // Authorization: `Bearer ${clerkToken}`,
-      },
-    };
+const makeClient = () => {
+  const httpLink = new HttpLink({
+    uri,
+    fetchOptions: { cache: 'no-store' },
   });
-  const client = new ApolloClient({
+
+  return new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
+    link: httpLink,
   });
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+};
+
+export const ApolloWrapper = ({ children }: PropsWithChildren) => {
+  return <ApolloProvider client={makeClient()}>{children}</ApolloProvider>;
 };

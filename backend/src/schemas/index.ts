@@ -1,4 +1,5 @@
-import { exampleTypeDefs } from "./example.schema";
-import { commonTypeDefs } from "./common.schema";
+import { tournamentTypeDefs } from "./tournement/tournement.schema"
+import { matchRoomTypeDefs } from "./tournement/match-room.schema";
+import { piWardTypeDefs } from "./tournement/pi-ward.schema"
 
-export const typeDefs = [exampleTypeDefs, commonTypeDefs];
+export const typeDefs = [matchRoomTypeDefs, tournamentTypeDefs, piWardTypeDefs];
