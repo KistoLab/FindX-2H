@@ -1,0 +1,1 @@
+{"version":3,"file":"ai.client.d.ts","sourceRoot":"","sources":["../../src/services/ai.client.ts"],"names":[],"mappings":"AAAA,qBAAa,QAAQ;WACN,UAAU,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,CAAC;WAiE3C,mBAAmB,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,CAAC;CAgElE"}

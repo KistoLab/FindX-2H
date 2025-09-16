@@ -1,0 +1,1 @@
+{"version":3,"file":"create-student-answer.d.ts","sourceRoot":"","sources":["../../../../../src/resolvers/mutations/student/answer/create-student-answer.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,wBAAwB,EAAE,MAAM,mBAAmB,CAAC;AAE7D,eAAO,MAAM,mBAAmB,GAC9B,GAAG,OAAO,EACV,WAAW;IAAE,KAAK,EAAE,wBAAwB,CAAA;CAAE,iBA0B/C,CAAC"}

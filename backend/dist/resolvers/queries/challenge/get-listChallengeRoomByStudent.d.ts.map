@@ -1,0 +1,1 @@
+{"version":3,"file":"get-listChallengeRoomByStudent.d.ts","sourceRoot":"","sources":["../../../../src/resolvers/queries/challenge/get-listChallengeRoomByStudent.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,cAAc,EAAiB,MAAM,mBAAmB,CAAC;AAElE,eAAO,MAAM,2BAA2B,EAAE,cAAc,CAAC,6BAA6B,CAsBnF,CAAC"}

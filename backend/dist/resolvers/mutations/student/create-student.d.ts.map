@@ -1,0 +1,1 @@
+{"version":3,"file":"create-student.d.ts","sourceRoot":"","sources":["../../../../src/resolvers/mutations/student/create-student.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,kBAAkB,EAAE,MAAM,mBAAmB,CAAC;AAEvD,eAAO,MAAM,aAAa,GACxB,GAAG,OAAO,EACV,WAAW;IAAE,KAAK,EAAE,kBAAkB,CAAA;CAAE;;;;;;;;;;;;;;;;;;;;;;;;;;EAgCzC,CAAC"}

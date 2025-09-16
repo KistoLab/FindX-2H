@@ -1,0 +1,1 @@
+{"version":3,"file":"update-student-answer-score.d.ts","sourceRoot":"","sources":["../../../../../src/resolvers/mutations/student/answer/update-student-answer-score.ts"],"names":[],"mappings":"AAGA,eAAO,MAAM,wBAAwB,GACnC,GAAG,OAAO,EACV,yCAIG;IAAE,eAAe,EAAE,MAAM,CAAC;IAAC,UAAU,EAAE,MAAM,CAAC;IAAC,KAAK,EAAE,MAAM,CAAA;CAAE,iBAiClE,CAAC"}

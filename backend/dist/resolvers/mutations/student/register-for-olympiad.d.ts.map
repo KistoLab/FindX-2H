@@ -1,0 +1,1 @@
+{"version":3,"file":"register-for-olympiad.d.ts","sourceRoot":"","sources":["../../../../src/resolvers/mutations/student/register-for-olympiad.ts"],"names":[],"mappings":"AAIA,eAAO,MAAM,mBAAmB,GAC9B,GAAG,OAAO,EACV,WAAW;IAAE,KAAK,EAAE;QAAE,SAAS,EAAE,MAAM,CAAC;QAAC,WAAW,EAAE,MAAM,CAAA;KAAE,CAAA;CAAE,qBAqDjE,CAAC"}

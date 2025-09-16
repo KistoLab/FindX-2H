@@ -1,16 +1,16 @@
-import { NextRequest } from "next/server";
+import { Request } from "express";
 
 export interface Context {
-  req: NextRequest;
+  req: Request;
   studentId?: string;
   organizerId?: string;
 }
 
-export async function buildContext(req: NextRequest): Promise<Context> {
+export async function buildContext(req: Request): Promise<Context> {
   try {
-    // Next.js App Router-д headers шууд ашиглах
-    const studentId = req.headers.get("x-student-id");
-    const organizerId = req.headers.get("x-organizer-id");
+    // Express headers access
+    const studentId = req.headers["x-student-id"] as string;
+    const organizerId = req.headers["x-organizer-id"] as string;
 
     return {
       req,

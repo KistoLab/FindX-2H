@@ -1,0 +1,1 @@
+{"version":3,"file":"get-students-by-olympiad-id.d.ts","sourceRoot":"","sources":["../../../../../src/resolvers/queries/student/answer/get-students-by-olympiad-id.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,cAAc,EAAE,MAAM,mBAAmB,CAAC;AAGnD,eAAO,MAAM,uBAAuB,EAAE,cAAc,CAAC,yBAAyB,CA+D3E,CAAC"}

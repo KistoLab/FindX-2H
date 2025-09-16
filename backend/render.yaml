@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: findx-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FindX_MONGODB_URL
+        sync: false
+      - key: LIVEKIT_API_KEY
+        sync: false
+      - key: LIVEKIT_API_SECRET
+        sync: false
+      - key: LIVEKIT_WS_URL
+        sync: false
+      - key: LIVEKIT_HTTP_URL
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://your-frontend-domain.com

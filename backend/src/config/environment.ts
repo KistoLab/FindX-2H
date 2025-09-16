@@ -16,7 +16,10 @@ export const config = {
 
   // Database Configuration
   database: {
-    mongodbUri: process.env.MONGODB_URI || "mongodb://localhost:27017/findx",
+    mongodbUri:
+      process.env.FindX_MONGODB_URL ||
+      process.env.MONGODB_URI ||
+      "mongodb://localhost:27017/findx",
   },
 
   // WebSocket Configuration
