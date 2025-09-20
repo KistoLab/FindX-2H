@@ -7,6 +7,8 @@ interface OlympiadListProps {
     loading: boolean;
     onEditOlympiad: (olympiad: any) => void;
     onDeleteOlympiad: (id: string) => void;
+    onFinishOlympiad?: (id: string) => void;
+    onProcessRankings?: (id: string) => void;
     isDeleting: boolean;
 }
 
@@ -15,6 +17,8 @@ export const OlympiadList = ({
     loading,
     onEditOlympiad,
     onDeleteOlympiad,
+    onFinishOlympiad,
+    onProcessRankings,
     isDeleting,
 }: OlympiadListProps) => {
     const getStatusColor = (status: string) => {
@@ -263,23 +267,45 @@ export const OlympiadList = ({
 
                                         <div className="flex space-x-2">
                                             <button
+                                                onClick={() => onEditOlympiad(olympiad)}
+                                                className="px-3 py-2 bg-background border border-border text-foreground rounded-lg hover:bg-accent transition-colors"
+                                            >
+                                                <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </button>
+                                            {onProcessRankings && olympiad.status === "OPEN" && (
+                                                <button
+                                                    onClick={() => onProcessRankings(olympiad.id)}
+                                                    className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                                >
+                                                    <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                                    </svg>
+                                                    Process Rankings
+                                                </button>
+                                            )}
+                                            {onFinishOlympiad && olympiad.status === "OPEN" && (
+                                                <button
+                                                    onClick={() => onFinishOlympiad(olympiad.id)}
+                                                    className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                                >
+                                                    <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    Finish
+                                                </button>
+                                            )}
+                                            <button
                                                 onClick={() => onDeleteOlympiad(olympiad.id)}
                                                 disabled={isDeleting}
-                                                className="px-4 py-2 bg-background border border-border text-foreground rounded-lg hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                                className="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
                                                 <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                                Reject
-                                            </button>
-                                            <button
-                                                onClick={() => onEditOlympiad(olympiad)}
-                                                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-                                            >
-                                                <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                </svg>
-                                                Approve
+                                                Delete
                                             </button>
                                         </div>
                                     </div>

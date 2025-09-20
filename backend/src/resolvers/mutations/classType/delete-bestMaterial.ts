@@ -11,7 +11,6 @@ export const deleteBestMaterial = async (
       throw new Error("ClassType not found");
     }
 
-    // Remove the bestMaterial by studentId (assuming id is studentId)
     const initialLength = classType.bestMaterials.length;
     classType.bestMaterials = classType.bestMaterials.filter(
       (bm: any) => bm.studentId.toString() !== id

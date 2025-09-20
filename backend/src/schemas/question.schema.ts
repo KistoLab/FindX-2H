@@ -9,6 +9,7 @@ export const QuestionTypeDefs = gql`
   }
 
   input CreateQuestionInput {
+    classTypeId: ID!
     questionName: String!
     maxScore: Int!
   }

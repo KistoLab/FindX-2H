@@ -29,6 +29,8 @@ export const ClassTypeTypeDefs = gql`
   type ClassType {
     id: ID!
     classYear: ClassYear!
+    classRoomId: [ID!]
+    occuringTime: String!
     maxScore: Int!
     questions: [Question!]!
     medalists: Int!
@@ -54,6 +56,7 @@ export const ClassTypeTypeDefs = gql`
     maxScore: Int!
     questions: [CreateQuestionInput!]!
     medalists: Int!
+    occuringTime: String!
     olympiadId: ID
   }
 
@@ -66,6 +69,7 @@ export const ClassTypeTypeDefs = gql`
     classYear: ClassYear
     maxScore: Int
     medalists: Int
+    occuringTime: String
     olympiadId: ID
     bestMaterials: [BestMaterialInput!]
     gold: [ID!]

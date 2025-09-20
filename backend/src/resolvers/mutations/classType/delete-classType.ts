@@ -9,12 +9,10 @@ export const deleteClassType = async (_: unknown, { id }: any) => {
       return false;
     }
 
-    // Delete associated questions
     if (classType.questions.length > 0) {
       await QuestionModel.deleteMany({ _id: { $in: classType.questions } });
     }
 
-    // Delete the classType
     const result = await ClassTypeModel.findByIdAndDelete(id);
 
     return !!result;

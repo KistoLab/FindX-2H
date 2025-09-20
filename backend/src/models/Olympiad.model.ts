@@ -22,14 +22,14 @@ enum OlympiadStatus {
 type OlympiadSchemaType = {
   name: string;
   description: string;
-  closeDay: Date;
+  closeDay?: Date;
   location: string;
   organizer: Schema.Types.ObjectId;
   participants: Schema.Types.ObjectId[];
   classtypes: Schema.Types.ObjectId[];
   scoreOfAward?: number;
   status: OlympiadStatus;
-  occurringDay: Date;
+  occurringDay?: Date;
   invitation: boolean;
   rankingType: OlympiadRankingType;
 };
@@ -38,7 +38,7 @@ const olympiadSchema = new Schema<OlympiadSchemaType>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    closeDay: { type: Date, required: true },
+    closeDay: { type: Date, required: false },
     location: { type: String, required: true },
     organizer: {
       type: Schema.Types.ObjectId,
@@ -54,7 +54,7 @@ const olympiadSchema = new Schema<OlympiadSchemaType>(
       default: OlympiadStatus.DRAFT,
       required: true,
     },
-    occurringDay: { type: Date, required: true },
+    occurringDay: { type: Date, required: false },
     invitation: { type: Boolean, default: false },
     rankingType: {
       type: String,

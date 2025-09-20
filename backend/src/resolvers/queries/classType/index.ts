@@ -6,3 +6,4 @@ export * from "./participants-by-classType";
 export * from "./students-results-by-classType";
 export * from "./best-materials-by-classType";
 export * from "./get-all-best-materials";
+export * from "./questions-by-classType";

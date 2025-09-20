@@ -16,6 +16,9 @@ export const StudentAnswerTypeDefs = gql`
     createdAt: String!
     updatedAt: String!
     image: [String!]!
+    mandatNumber: String!
+    roomNumber: ID
+    isArrive: Boolean!
   }
 
   input StudentAnswerItemInput {
@@ -29,6 +32,9 @@ export const StudentAnswerTypeDefs = gql`
     classTypeId: ID!
     answers: [StudentAnswerItemInput!]!
     image: [String!]!
+    mandatNumber: String!
+    roomNumber: ID
+    isArrive: Boolean
   }
 
   input UpdateStudentAnswerInput {
@@ -37,6 +43,9 @@ export const StudentAnswerTypeDefs = gql`
     answers: [StudentAnswerItemInput!]
     totalScoreofOlympiad: Int
     image: [String!]
+    mandatNumber: String
+    roomNumber: ID
+    isArrive: Boolean
   }
 
   type Mutation {

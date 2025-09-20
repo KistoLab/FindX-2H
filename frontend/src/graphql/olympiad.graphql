@@ -441,3 +441,55 @@ query Olympiad($olympiadId: ID!) {
   }
 }
 
+mutation ProcessOlympiadRankings($olympiadId: ID!) {
+  processOlympiadRankings(olympiadId: $olympiadId) {
+    success
+    message
+    classTypesProcessed
+    totalStudentsProcessed
+    results {
+      gold
+      silver
+      bronze
+      top10
+      processedStudents
+    }
+  }
+}
+
+query GetPendingOlympiads {
+  getPendingOlympiads {
+    id
+    name
+    description
+    closeDay
+    location
+    organizer {
+      id
+      organizationName
+      email
+    }
+    classtypes {
+      id
+      classYear
+      maxScore
+      questions {
+        id
+        classTypeId
+        questionName
+        maxScore
+      }
+      medalists
+      participants
+      studentsAnswers
+      olympiadId
+    }
+    participants
+    scoreOfAward
+    status
+    rankingType
+    invitation
+    occurringDay
+  }
+}
+

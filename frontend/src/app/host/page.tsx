@@ -1,12 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 
 import { OlympiadForm } from "@/components/host/OlympiadForm";
 import { OlympiadList } from "@/components/host/OlympiadList";
 import { ManageResults } from "@/components/host/ManageResults";
 import HostSidebar from "@/components/host/HostSidebar";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
+
+import { 
+  GetOrganizerWithOlympiadsDocument,
+  CreateOlympiadDocument,
+  UpdateOlympiadDocument,
+  DeleteOlympiadDocument,
+  FinishOlympiadDocument,
+  ProcessOlympiadRankingsDocument,
+  CreateClassTypeDocument,
+  UpdateClassTypeDocument,
+  DeleteClassTypeDocument,
+  CreateQuestionDocument,
+  UpdateQuestionDocument,
+  DeleteQuestionDocument
+} from "@/generated";
 
 type TabType = "create" | "manage" | "results";
 
@@ -15,6 +31,7 @@ const HostPage = () => {
     const [editingOlympiad, setEditingOlympiad] = useState<any>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [currentOrganizerId, setCurrentOrganizerId] = useState<string>("68ce60987f494f963e88a8cb");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -22,7 +39,7 @@ const HostPage = () => {
         closeDay: "",
         occurringDay: "",
         location: "",
-        organizerId: "68c553d2dbdb1b5ed2b0e455",
+        organizerId: currentOrganizerId,
         invitation: false,
         rankingType: "SCHOOL" as any,
     });
@@ -32,6 +49,7 @@ const HostPage = () => {
             classYear: "Grade_5",
             maxScore: 20,
             medalists: 3,
+            occuringTime: "",
             questions: [
                 { questionName: "Question 1", maxScore: 5 },
                 { questionName: "Question 2", maxScore: 5 },
@@ -41,27 +59,30 @@ const HostPage = () => {
         },
     ]);
 
-    // Mock data for now
-    const myOlympiads = [
+    // GraphQL Queries
+    const { data: hostData, loading: hostLoading, refetch: refetchHostData } = useQuery(
+        GetOrganizerWithOlympiadsDocument,
         {
-            id: "1",
-            name: "Math Olympiad 2024",
-            description: "Annual mathematics competition",
-            date: "2024-03-15",
-            location: "Ulaanbaatar",
-            status: "approved",
-            classtypes: []
-        },
-        {
-            id: "2",
-            name: "Science Fair 2024",
-            description: "Science and technology competition",
-            date: "2024-04-20",
-            location: "Darkhan",
-            status: "pending",
-            classtypes: []
+            variables: { hostId: currentOrganizerId },
+            skip: !currentOrganizerId
         }
-    ];
+    );
+
+    // GraphQL Mutations
+    const [createOlympiadMutation] = useMutation(CreateOlympiadDocument);
+    const [updateOlympiadMutation] = useMutation(UpdateOlympiadDocument);
+    const [deleteOlympiadMutation] = useMutation(DeleteOlympiadDocument);
+    const [finishOlympiadMutation] = useMutation(FinishOlympiadDocument);
+    const [processOlympiadRankingsMutation] = useMutation(ProcessOlympiadRankingsDocument);
+    const [createClassTypeMutation] = useMutation(CreateClassTypeDocument);
+    const [updateClassTypeMutation] = useMutation(UpdateClassTypeDocument);
+    const [deleteClassTypeMutation] = useMutation(DeleteClassTypeDocument);
+    const [createQuestionMutation] = useMutation(CreateQuestionDocument);
+    const [updateQuestionMutation] = useMutation(UpdateQuestionDocument);
+    const [deleteQuestionMutation] = useMutation(DeleteQuestionDocument);
+
+    // Get olympiads from the host data
+    const myOlympiads = hostData?.getOrganizer?.Olympiads || [];
 
     const resetForm = () => {
         setFormData({
@@ -70,7 +91,7 @@ const HostPage = () => {
             closeDay: "",
             occurringDay: "",
             location: "",
-            organizerId: "68c553d2dbdb1b5ed2b0e455",
+            organizerId: "68ce60987f494f963e88a8cb",
             invitation: false,
             rankingType: "SCHOOL" as any,
         });
@@ -79,6 +100,7 @@ const HostPage = () => {
                 classYear: "Grade_5",
                 maxScore: 20,
                 medalists: 3,
+                occuringTime: "",
                 questions: [
                     { questionName: "Question 1", maxScore: 5 },
                     { questionName: "Question 2", maxScore: 5 },
@@ -94,11 +116,88 @@ const HostPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Handle form submission
-        setTimeout(() => {
-            setIsSubmitting(false);
+        
+        try {
+            console.log("editingOlympiad state:", editingOlympiad);
+            if (editingOlympiad) {
+                // Update existing olympiad
+                await updateOlympiadMutation({
+                    variables: {
+                        updateOlympiadId: editingOlympiad.id,
+                        input: {
+                            description: formData.description,
+                            closeDay: formData.closeDay,
+                            location: formData.location,
+                            rankingType: formData.rankingType,
+                            invitation: formData.invitation,
+                            occurringDay: formData.occurringDay,
+                        }
+                    }
+                });
+            } else {
+                // Create new olympiad
+                console.log("ClassTypes before mapping:", classTypes);
+                console.log("ClassTypes length:", classTypes.length);
+                classTypes.forEach((ct, index) => {
+                    console.log(`ClassType ${index}:`, {
+                        classYear: ct.classYear,
+                        maxScore: ct.maxScore,
+                        medalists: ct.medalists,
+                        occuringTime: ct.occuringTime,
+                        occuringTimeType: typeof ct.occuringTime,
+                        occuringTimeLength: ct.occuringTime?.length,
+                        questions: ct.questions
+                    });
+                });
+                
+                // Validate that all class types have occuringTime
+                for (let i = 0; i < classTypes.length; i++) {
+                    const ct = classTypes[i];
+                    if (!ct.occuringTime || ct.occuringTime.trim() === "") {
+                        alert(`Please provide an occurring time for Class Type ${i + 1}.`);
+                        setIsSubmitting(false);
+                        return;
+                    }
+                }
+                
+                const mappedClassTypes = classTypes.map(ct => ({
+                    classYear: ct.classYear,
+                    maxScore: ct.maxScore,
+                    medalists: ct.medalists,
+                    occuringTime: ct.occuringTime,
+                    questions: ct.questions.map((q: any) => ({
+                        questionName: q.questionName,
+                        maxScore: q.maxScore
+                    }))
+                }));
+                console.log("Mapped classTypes:", mappedClassTypes);
+                
+                await createOlympiadMutation({
+                    variables: {
+                        input: {
+                            organizerId: formData.organizerId,
+                            name: formData.name,
+                            description: formData.description,
+                            closeDay: formData.closeDay,
+                            location: formData.location,
+                            classtypes: mappedClassTypes,
+                            rankingType: formData.rankingType,
+                            invitation: formData.invitation,
+                            occurringDay: formData.occurringDay,
+                        }
+                    }
+                });
+            }
+            
+            // Refetch data to update the UI
+            await refetchHostData();
             resetForm();
-        }, 1000);
+        } catch (error) {
+            console.error("Error submitting olympiad:", error);
+            alert("Error submitting olympiad. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleEditOlympiad = (olympiad: any) => {
@@ -108,7 +207,7 @@ const HostPage = () => {
             closeDay: olympiad.closeDay || "",
             occurringDay: olympiad.occurringDay || olympiad.date,
             location: olympiad.location,
-            organizerId: "68c553d2dbdb1b5ed2b0e455",
+            organizerId: "68ce60987f494f963e88a8cb",
             invitation: olympiad.invitation || false,
             rankingType: olympiad.rankingType || "SCHOOL",
         });
@@ -121,20 +220,32 @@ const HostPage = () => {
             return;
         }
         setIsDeleting(true);
-        // Handle deletion
-        setTimeout(() => {
+        
+        try {
+            await deleteOlympiadMutation({
+                variables: { deleteOlympiadId: id }
+            });
+            
+            // Refetch data to update the UI
+            await refetchHostData();
+        } catch (error) {
+            console.error("Error deleting olympiad:", error);
+            alert("Error deleting olympiad. Please try again.");
+        } finally {
             setIsDeleting(false);
-        }, 1000);
+        }
     };
 
     const updateFormData = (field: string, value: string | boolean) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
-    const updateClassType = (index: number, field: string, value: any) => {
+    const handleUpdateClassType = (index: number, field: string, value: any) => {
+        console.log(`Updating classType ${index}, field: ${field}, value:`, value);
         const updated = classTypes.map((classType, i) =>
             i === index ? { ...classType, [field]: value } : classType
         );
+        console.log("Updated classTypes:", updated);
         setClassTypes(updated);
     };
 
@@ -145,6 +256,7 @@ const HostPage = () => {
                 classYear: "Grade_5",
                 maxScore: 10,
                 medalists: 3,
+                occuringTime: "",
                 questions: [
                     { questionName: "Question 1", maxScore: 5 },
                     { questionName: "Question 2", maxScore: 5 },
@@ -194,7 +306,7 @@ const HostPage = () => {
         setClassTypes(updated);
     };
 
-    const updateQuestion = (
+    const handleUpdateQuestion = (
         classTypeIndex: number,
         questionIndex: number,
         field: string,
@@ -240,6 +352,42 @@ const HostPage = () => {
         // You could also reset form to default values for quick create
     };
 
+    const handleFinishOlympiad = async (olympiadId: string) => {
+        if (!confirm("Are you sure you want to finish this olympiad? This action cannot be undone.")) {
+            return;
+        }
+        
+        try {
+            await finishOlympiadMutation({
+                variables: { finishOlympiadId: olympiadId }
+            });
+            
+            // Refetch data to update the UI
+            await refetchHostData();
+            alert("Olympiad finished successfully!");
+        } catch (error) {
+            console.error("Error finishing olympiad:", error);
+            alert("Error finishing olympiad. Please try again.");
+        }
+    };
+
+    const handleProcessRankings = async (olympiadId: string) => {
+        try {
+            const result = await processOlympiadRankingsMutation({
+                variables: { olympiadId }
+            });
+            
+            if (result.data?.processOlympiadRankings?.success) {
+                alert(`Rankings processed successfully! Processed ${result.data.processOlympiadRankings.totalStudentsProcessed} students across ${result.data.processOlympiadRankings.classTypesProcessed} class types.`);
+                // Refetch data to update the UI
+                await refetchHostData();
+            }
+        } catch (error) {
+            console.error("Error processing rankings:", error);
+            alert("Error processing rankings. Please try again.");
+        }
+    };
+
     const handleExportResults = (olympiadId: string) => {
         // Handle export results functionality
         console.log("Exporting results for olympiad:", olympiadId);
@@ -257,7 +405,6 @@ const HostPage = () => {
         { label: "Create Olympiad", ariaLabel: "Create new olympiad", link: "#create" },
         { label: "Manage Olympiads", ariaLabel: "Manage existing olympiads", link: "#manage" },
         { label: "Manage Results", ariaLabel: "Manage olympiad results", link: "#results" },
-        { label: "Quick Create", ariaLabel: "Quick create new olympiad", link: "#quick-create" },
     ];
 
     const socialItems: any[] = [];
@@ -274,9 +421,6 @@ const HostPage = () => {
             case "#results":
                 setActiveTab("results");
                 break;
-            case "#quick-create":
-                handleQuickCreate();
-                break;
             default:
                 break;
         }
@@ -292,12 +436,12 @@ const HostPage = () => {
                         editingOlympiad={editingOlympiad}
                         onSubmit={handleSubmit}
                         onUpdateFormData={updateFormData}
-                        onUpdateClassType={updateClassType}
+                        onUpdateClassType={handleUpdateClassType}
                         onAddClassType={addClassType}
                         onRemoveClassType={removeClassType}
                         onAddQuestion={addQuestion}
                         onRemoveQuestion={removeQuestion}
-                        onUpdateQuestion={updateQuestion}
+                        onUpdateQuestion={handleUpdateQuestion}
                         onResetForm={resetForm}
                         isSubmitting={isSubmitting}
                     />
@@ -306,9 +450,11 @@ const HostPage = () => {
                 return (
                     <OlympiadList
                         olympiads={myOlympiads}
-                        loading={false}
+                        loading={hostLoading}
                         onEditOlympiad={handleEditOlympiad}
                         onDeleteOlympiad={handleDeleteOlympiad}
+                        onFinishOlympiad={handleFinishOlympiad}
+                        onProcessRankings={handleProcessRankings}
                         isDeleting={isDeleting}
                     />
                 );
@@ -422,7 +568,7 @@ const HostPage = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-bold text-foreground">{myOlympiads.filter(o => o.status === 'pending').length}</div>
+                                    <div className="text-3xl font-bold text-foreground">{myOlympiads.filter((o: any) => o.status === 'pending').length}</div>
                                     <div className="text-sm text-muted-foreground">Pending Approvals</div>
                                 </div>
                             </div>
@@ -436,7 +582,7 @@ const HostPage = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-bold text-foreground">{myOlympiads.filter(o => o.status === 'approved').length}</div>
+                                    <div className="text-3xl font-bold text-foreground">{myOlympiads.filter((o: any) => o.status === 'approved').length}</div>
                                     <div className="text-sm text-muted-foreground">Active Competitions</div>
                                 </div>
                             </div>

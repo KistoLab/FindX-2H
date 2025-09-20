@@ -7,10 +7,8 @@ import {
 } from "@/lib/enumUtils";
 
 export const updateClassType = async (_: unknown, { id, input }: any) => {
-  // Prepare update data
   const updateData: any = { ...input };
 
-  // Convert classYear if provided
   if (input.classYear) {
     updateData.classYear = mapClassYearToDB(input.classYear);
   }

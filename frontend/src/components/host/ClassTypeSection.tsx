@@ -31,9 +31,14 @@ export const ClassTypeSection = ({
   return (
     <div className="space-y-4">
       <div className="flex sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <h3 className="text-lg font-bold text-foreground">
-          Class Types & Questions
-        </h3>
+        <div>
+          <h3 className="text-lg font-bold text-foreground">
+            Class Types & Questions
+          </h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            Note: C Class (5-6), D Class (7-8), E Class (9-10), F Class (11-12). Students can participate in their grade level and higher.
+          </p>
+        </div>
         {!editingOlympiad && (
           <button
             type="button"
@@ -92,7 +97,7 @@ export const ClassTypeSection = ({
           </div>
 
           {/* Class Type Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
             <div>
               <label className="block text-xs font-medium text-foreground mb-1">
                 Class Year
@@ -121,7 +126,28 @@ export const ClassTypeSection = ({
                 <option value={ClassYear.Grade_10}>Grade 10</option>
                 <option value={ClassYear.Grade_11}>Grade 11</option>
                 <option value={ClassYear.Grade_12}>Grade 12</option>
+                <option value={ClassYear.CClass}>C Class (Grades 5-6)</option>
+                <option value={ClassYear.DClass}>D Class (Grades 7-8)</option>
+                <option value={ClassYear.EClass}>E Class (Grades 9-10)</option>
+                <option value={ClassYear.FClass}>F Class (Grades 11-12)</option>
               </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-foreground mb-1">
+                Occurring Time *
+              </label>
+              <input
+                type="text"
+                value={classType.occuringTime || ""}
+                onChange={(e) =>
+                  onUpdateClassType(classTypeIndex, "occuringTime", e.target.value)
+                }
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm bg-background text-foreground"
+                placeholder="e.g., 9:00 AM - 12:00 PM"
+                disabled={!!editingOlympiad}
+                required
+              />
             </div>
 
             <div>

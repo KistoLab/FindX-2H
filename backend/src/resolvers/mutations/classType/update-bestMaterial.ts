@@ -3,15 +3,12 @@ import { transformDocument, mapClassYearToGraphQL } from "@/lib/enumUtils";
 
 export const updateBestMaterial = async (_: unknown, { id, input }: any) => {
   const { classTypeId, studentId, materialImages, description } = input;
-
-  // Find the classType and update the specific bestMaterial
   const classType = await ClassTypeModel.findById(classTypeId);
 
   if (!classType) {
     throw new Error("ClassType not found");
   }
 
-  // Find and update the bestMaterial by studentId (assuming id is studentId)
   const bestMaterialIndex = classType.bestMaterials.findIndex(
     (bm: any) => bm.studentId.toString() === id
   );
@@ -20,7 +17,6 @@ export const updateBestMaterial = async (_: unknown, { id, input }: any) => {
     throw new Error("BestMaterial not found");
   }
 
-  // Update the bestMaterial
   classType.bestMaterials[bestMaterialIndex] = {
     studentId,
     materialImages,
@@ -29,7 +25,6 @@ export const updateBestMaterial = async (_: unknown, { id, input }: any) => {
 
   await classType.save();
 
-  // Populate and return updated classType
   const populatedClassType = await ClassTypeModel.findById(classTypeId)
     .populate({
       path: "questions",
@@ -58,7 +53,6 @@ export const updateBestMaterial = async (_: unknown, { id, input }: any) => {
     transformed.classYear = mapClassYearToGraphQL(transformed.classYear);
   }
 
-  // Return the updated bestMaterial
   const updatedBestMaterial = classType.bestMaterials[bestMaterialIndex];
   return {
     studentId: updatedBestMaterial.studentId.toString(),

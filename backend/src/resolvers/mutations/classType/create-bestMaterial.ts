@@ -42,7 +42,6 @@ export const createBestMaterial = async (_: unknown, { input }: any) => {
     transformed.classYear = mapClassYearToGraphQL(transformed.classYear);
   }
 
-  // Return the newly created bestMaterial
   const newBestMaterial =
     updatedClassType.bestMaterials[updatedClassType.bestMaterials.length - 1];
   return {

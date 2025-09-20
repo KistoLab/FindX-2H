@@ -49,7 +49,7 @@ export const getAllOrganizers = async () => {
         maxScore: classType.maxScore,
         questions: classType.questions ? classType.questions.map((question: any) => ({
           id: question._id.toString(),
-          classTypeId: question.classTypeId,
+          classTypeId: question.classTypeId?.toString() || classType._id.toString(),
           questionName: question.questionName,
           maxScore: question.maxScore
         })) : [],

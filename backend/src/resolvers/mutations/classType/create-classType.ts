@@ -2,24 +2,23 @@ import { ClassTypeModel } from "@/models";
 import { QuestionModel } from "@/models";
 import {
   transformDocument,
-  transformNestedObject,
   mapClassYearToDB,
   mapClassYearToGraphQL,
 } from "@/lib/enumUtils";
 
 export const createClassType = async (_: unknown, { input }: any) => {
-  const { classYear, maxScore, questions, medalists, olympiadId } = input;
+  const { classYear, maxScore, questions, medalists, occuringTime, olympiadId } = input;
 
   const classType = new ClassTypeModel({
     olympiadId,
     classYear: mapClassYearToDB(classYear),
     maxScore,
-    medalists, // Int, not array
+    medalists,
+    occuringTime,
     questions: [],
   });
   await classType.save();
 
-  // Create questions
   const questionIds: any[] = [];
   for (const questionInput of questions) {
     const question = new QuestionModel({
@@ -31,11 +30,9 @@ export const createClassType = async (_: unknown, { input }: any) => {
     questionIds.push(question._id);
   }
 
-  // Update classType with question IDs
   classType.questions = questionIds as any;
   await classType.save();
 
-  // Populate and return
   const populatedClassType = await ClassTypeModel.findById(classType._id)
     .populate({
       path: "questions",

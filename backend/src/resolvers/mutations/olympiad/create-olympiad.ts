@@ -45,13 +45,14 @@ export const createOlympiad = async (_: unknown, { input }: any) => {
   const classYears = [];
 
   for (const classTypeInput of classtypes) {
-    const { classYear, maxScore, medalists, questions } = classTypeInput;
+    const { classYear, maxScore, medalists, occuringTime, questions } = classTypeInput;
 
     const classType = new ClassTypeModel({
       olympiadId: olympiad._id,
       classYear: mapClassYearToDB(classYear),
       maxScore,
       medalists,
+      occuringTime,
     });
     await classType.save();
 

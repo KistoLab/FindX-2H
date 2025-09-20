@@ -3,10 +3,9 @@
 import { useState } from "react";
 import Stepper, { Step } from "../ui/Stepper";
 import { ClassTypeSection } from "./ClassTypeSection";
+import { DatePicker } from "../ui/date-picker";
 import {
   type CreateClassTypeInput,
-  type CreateOlympiadRequestInput,
-  useCreateOlympiadMutation,
   OlympiadRankingType
 } from "@/generated";
 
@@ -57,7 +56,6 @@ export const OlympiadForm = ({
   onResetForm,
   isSubmitting,
 }: OlympiadFormProps) => {
-  const [createOlympiad, { loading: mutationLoading, error: mutationError }] = useCreateOlympiadMutation();
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleFinalSubmit = async () => {
@@ -72,42 +70,29 @@ export const OlympiadForm = ({
       return;
     }
 
-    // Validate class types have questions
-    for (const classType of classTypes) {
+    // Validate class types have questions and occuringTime
+    console.log("Form validation - classTypes:", classTypes);
+    for (let i = 0; i < classTypes.length; i++) {
+      const classType = classTypes[i];
+      console.log(`Validating classType ${i}:`, {
+        questions: classType.questions,
+        occuringTime: classType.occuringTime,
+        occuringTimeType: typeof classType.occuringTime
+      });
+      
       if (classType.questions.length === 0) {
-        alert("Each class type must have at least one question.");
+        alert(`Each class type must have at least one question. (Class Type ${i + 1})`);
+        return;
+      }
+      if (!classType.occuringTime || classType.occuringTime.trim() === "") {
+        alert(`Please provide an occurring time for Class Type ${i + 1}.`);
         return;
       }
     }
 
-    try {
-      const input: CreateOlympiadRequestInput = {
-        name: formData.name,
-        description: formData.description,
-        closeDay: new Date(formData.closeDay).toISOString(),
-        occurringDay: new Date(formData.occurringDay).toISOString(),
-        location: formData.location,
-        organizerId: formData.organizerId,
-        invitation: formData.invitation,
-        rankingType: formData.rankingType,
-        classtypes: classTypes
-      };
-
-      console.log("Submitting olympiad with input:", input);
-
-      const result = await createOlympiad({
-        variables: { input }
-      });
-
-      if (result.data?.createOlympiad) {
-        alert("Olympiad created successfully!");
-        onResetForm();
-        setCurrentStep(1);
-      }
-    } catch (error) {
-      console.error("Error creating olympiad:", error);
-      alert(`Failed to create olympiad: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
+    // Use the onSubmit prop from the host page instead of direct mutation
+    const mockEvent = new Event('submit') as any;
+    onSubmit(mockEvent);
   };
 
   return (
@@ -121,7 +106,7 @@ export const OlympiadForm = ({
         backButtonText="Previous"
         nextButtonText="Next"
         nextButtonProps={{
-          disabled: mutationLoading
+          disabled: isSubmitting
         }}
       >
         {/* Step 1: Basic Information */}
@@ -174,6 +159,7 @@ export const OlympiadForm = ({
                   required
                 />
               </div>
+
             </div>
           </div>
         </Step>
@@ -191,11 +177,10 @@ export const OlympiadForm = ({
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Registration Close Date *
                 </label>
-                <input
-                  type="datetime-local"
+                <DatePicker
                   value={formData.closeDay}
-                  onChange={(e) => onUpdateFormData("closeDay", e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm bg-background text-foreground"
+                  onChange={(value) => onUpdateFormData("closeDay", value)}
+                  placeholder="Select close date"
                   required
                 />
               </div>
@@ -204,11 +189,10 @@ export const OlympiadForm = ({
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Olympiad Date *
                 </label>
-                <input
-                  type="datetime-local"
+                <DatePicker
                   value={formData.occurringDay}
-                  onChange={(e) => onUpdateFormData("occurringDay", e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm bg-background text-foreground"
+                  onChange={(value) => onUpdateFormData("occurringDay", value)}
+                  placeholder="Select olympiad date"
                   required
                 />
               </div>
@@ -229,6 +213,9 @@ export const OlympiadForm = ({
                   <option value={OlympiadRankingType.District}>District Level</option>
                   <option value={OlympiadRankingType.Regional}>Regional Level</option>
                   <option value={OlympiadRankingType.National}>National Level</option>
+                  <option value={OlympiadRankingType.ATier}>A Tier</option>
+                  <option value={OlympiadRankingType.BTier}>B Tier</option>
+                  <option value={OlympiadRankingType.CTier}>C Tier</option>
                 </select>
               </div>
 
@@ -309,13 +296,6 @@ export const OlympiadForm = ({
                 </div>
               </div>
 
-              {mutationError && (
-                <div className="mt-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
-                  <p className="text-destructive text-sm">
-                    Error: {mutationError.message}
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </Step>

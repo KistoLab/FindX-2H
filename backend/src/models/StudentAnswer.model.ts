@@ -10,6 +10,9 @@ type StudentAnswerSchemaType = {
   }[];
   totalScoreofOlympiad?: number;
   image: string[];
+  mandatNumber: string;
+  roomNumber: Schema.Types.ObjectId;
+  isArrive: boolean;
 };
 
 const studentAnswerSchema = new Schema<StudentAnswerSchemaType>(
@@ -33,6 +36,9 @@ const studentAnswerSchema = new Schema<StudentAnswerSchemaType>(
     ],
     totalScoreofOlympiad: { type: Number, default: 0 },
     image: [{ type: String, required: true }],
+    mandatNumber: { type: String, required: true },
+    roomNumber: { type: Schema.Types.ObjectId, ref: "ClassRoom"},
+    isArrive: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
