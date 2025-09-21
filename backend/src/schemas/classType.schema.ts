@@ -26,6 +26,12 @@ export const ClassTypeTypeDefs = gql`
     description: String!
   }
 
+  type Room {
+    roomNumber: Int!
+    maxStudents: Int!
+    mandatNumbers: [String!]!
+  }
+
   type ClassType {
     id: ID!
     classYear: ClassYear!
@@ -40,6 +46,7 @@ export const ClassTypeTypeDefs = gql`
     silver: [ID!]!
     bronze: [ID!]!
     top10: [ID!]!
+    rooms: [Room!]!
   }
 
   type Question {
@@ -92,6 +99,25 @@ export const ClassTypeTypeDefs = gql`
     description: String!
   }
 
+  input CreateRoomInput {
+    classTypeId: ID!
+    roomNumber: Int!
+    maxStudents: Int!
+  }
+
+  input UpdateRoomInput {
+    roomNumber: Int
+    maxStudents: Int
+  }
+
+  type RoomAssignmentResult {
+    success: Boolean!
+    classTypeId: ID!
+    roomNumber: Int!
+    assignedStudentCount: Int!
+    assignedStudentIds: [ID!]!
+  }
+
   type Mutation {
     createClassType(input: CreateClassTypeInput!): ClassType!
     updateClassType(id: ID!, input: UpdateClassTypeInput!): ClassType!
@@ -99,6 +125,17 @@ export const ClassTypeTypeDefs = gql`
     createBestMaterial(input: CreateBestMaterialInput!): BestMaterial!
     updateBestMaterial(id: ID!, input: UpdateBestMaterialInput!): BestMaterial!
     deleteBestMaterial(id: ID!): Boolean!
+    createRoom(input: CreateRoomInput!): ClassType!
+    updateRoom(
+      classTypeId: ID!
+      roomNumber: Int!
+      input: UpdateRoomInput!
+    ): ClassType!
+    deleteRoom(classTypeId: ID!, roomNumber: Int!): ClassType!
+    assignStudentsToRoom(
+      classTypeId: ID!
+      roomNumber: Int!
+    ): RoomAssignmentResult!
   }
 
   type Query {

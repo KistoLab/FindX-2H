@@ -19,8 +19,6 @@ export enum ClassYear {
   F_CLASS = "F_CLASS",
 }
 
-
-
 const bestMaterialSchema = new Schema(
   {
     studentId: {
@@ -30,6 +28,15 @@ const bestMaterialSchema = new Schema(
     },
     materialImages: [String],
     description: String,
+  },
+  { _id: false }
+);
+
+const roomSchema = new Schema(
+  {
+    roomNumber: { type: Number, required: true },
+    maxStudents: { type: Number, required: true },
+    mandatNumbers: { type: [String], default: [] },
   },
   { _id: false }
 );
@@ -50,6 +57,11 @@ type ClassTypeSchemaType = {
     studentId: Schema.Types.ObjectId;
     materialImages: string[];
     description: string;
+  }[];
+  rooms: {
+    roomNumber: number;
+    maxStudents: number;
+    mandatNumbers: string[];
   }[];
 };
 
@@ -75,6 +87,7 @@ const classTypeSchema = new Schema<ClassTypeSchemaType>(
     bronze: [{ type: Schema.Types.ObjectId, ref: "Student", default: [] }],
     top10: [{ type: Schema.Types.ObjectId, ref: "Student", default: [] }],
     bestMaterials: [bestMaterialSchema],
+    rooms: { type: [roomSchema], default: [] },
   },
   { timestamps: true }
 );

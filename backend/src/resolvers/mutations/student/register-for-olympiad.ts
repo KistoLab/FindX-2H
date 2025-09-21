@@ -1,7 +1,9 @@
 import { StudentModel } from "@/models";
 import { ClassTypeModel } from "@/models";
 import { OlympiadModel } from "@/models";
+import { StudentAnswerModel } from "@/models";
 import { GraphQLError } from "graphql";
+import { generateMandatNumber } from "../../../utils/mandat-number-generator";
 
 export const registerForOlympiad = async (
   _: unknown,
@@ -64,6 +66,38 @@ export const registerForOlympiad = async (
       classTypeId,
       { $addToSet: { participants: studentId } },
       { new: true }
+    );
+
+    // Generate mandat number for this registration
+    const mandatNumber = await generateMandatNumber(student.class, studentId);
+
+    // Create a StudentAnswer record with the mandat number (answers will be empty initially)
+    const studentAnswer = new StudentAnswerModel({
+      studentId,
+      classTypeId,
+      answers: [], // Empty initially, will be filled when student submits answers
+      totalScoreofOlympiad: 0,
+      image: [],
+      mandatNumber,
+      roomNumber: undefined, // Will be assigned later when room is allocated
+    });
+
+    await studentAnswer.save();
+
+    // Add the student answer to the ClassType's studentsAnswers array
+    await ClassTypeModel.findByIdAndUpdate(
+      classTypeId,
+      { $addToSet: { studentsAnswers: studentAnswer._id } },
+      { new: true }
+    );
+
+    console.log(
+      "🎫 Generated mandat number:",
+      mandatNumber,
+      "for student:",
+      studentId,
+      "StudentAnswer ID:",
+      studentAnswer._id
     );
 
     console.log(

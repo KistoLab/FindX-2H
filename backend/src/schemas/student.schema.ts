@@ -9,7 +9,6 @@ export const StudentTypeDefs = gql`
   }
 
   enum StudentProvince {
-    ULAANBAATAR
     ARKHANGAI
     BAYAN_ULGII
     BAGANUUR

@@ -11,7 +11,8 @@ export const createStudentAnswer = async (
   { input }: { input: any }
 ) => {
   try {
-    const { studentId, classTypeId, answers, image } = input;
+    const { studentId, classTypeId, answers, image, mandatNumber, roomNumber } =
+      input;
 
     const existingStudent = await StudentModel.findById(studentId);
     if (!existingStudent) throw new GraphQLError("Student does not exist");
@@ -28,22 +29,42 @@ export const createStudentAnswer = async (
       ? answers.reduce((sum: number, a: any) => sum + (a?.score ?? 0), 0)
       : 0;
 
-    const studentAnswer = new StudentAnswerModel({
+    // Check if StudentAnswer already exists (created during registration)
+    let studentAnswer = await StudentAnswerModel.findOne({
       studentId,
       classTypeId,
-      answers,
-      totalScoreofOlympiad,
-      image: image || [],
     });
 
-    await studentAnswer.save();
+    if (studentAnswer) {
+      // Update existing StudentAnswer with answers
+      studentAnswer.answers = answers;
+      studentAnswer.totalScoreofOlympiad = totalScoreofOlympiad;
+      studentAnswer.image = image || [];
+      if (roomNumber) {
+        studentAnswer.roomNumber = roomNumber;
+      }
+      await studentAnswer.save();
+    } else {
+      // Create new StudentAnswer if it doesn't exist
+      studentAnswer = new StudentAnswerModel({
+        studentId,
+        classTypeId,
+        answers,
+        totalScoreofOlympiad,
+        image: image || [],
+        mandatNumber: mandatNumber || undefined, // Use provided mandatNumber or undefined
+        roomNumber,
+      });
 
-    // Add the student answer to the ClassType's studentsAnswers array
-    await ClassTypeModel.findByIdAndUpdate(
-      classTypeId,
-      { $addToSet: { studentsAnswers: studentAnswer._id } },
-      { new: true }
-    );
+      await studentAnswer.save();
+
+      // Add the student answer to the ClassType's studentsAnswers array
+      await ClassTypeModel.findByIdAndUpdate(
+        classTypeId,
+        { $addToSet: { studentsAnswers: studentAnswer._id } },
+        { new: true }
+      );
+    }
 
     const transformed = transformDocument(studentAnswer);
 

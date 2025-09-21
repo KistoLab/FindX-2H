@@ -16,6 +16,8 @@ export const StudentAnswerTypeDefs = gql`
     createdAt: String!
     updatedAt: String!
     image: [String!]!
+    mandatNumber: String
+    roomNumber: Int
   }
 
   input StudentAnswerItemInput {
@@ -29,6 +31,8 @@ export const StudentAnswerTypeDefs = gql`
     classTypeId: ID!
     answers: [StudentAnswerItemInput!]!
     image: [String!]!
+    mandatNumber: String
+    roomNumber: Int
   }
 
   input UpdateStudentAnswerInput {
@@ -37,6 +41,8 @@ export const StudentAnswerTypeDefs = gql`
     answers: [StudentAnswerItemInput!]
     totalScoreofOlympiad: Int
     image: [String!]
+    mandatNumber: String
+    roomNumber: Int
   }
 
   type Mutation {
@@ -51,6 +57,20 @@ export const StudentAnswerTypeDefs = gql`
       score: Int!
     ): StudentAnswer!
     deleteStudentAnswer(id: ID!): Boolean!
+    addMandatNumberToStudentAnswer(
+      id: ID!
+      mandatNumber: String
+    ): StudentAnswer!
+    removeMandatNumberFromStudentAnswer(
+      id: ID!
+      mandatNumber: String
+    ): StudentAnswer!
+  }
+
+  type MandatNumberInfo {
+    studentId: ID!
+    classTypeId: ID!
+    mandatNumber: String
   }
 
   type Query {
@@ -59,5 +79,11 @@ export const StudentAnswerTypeDefs = gql`
     studentAnswersByClassType(classTypeId: ID!): [StudentAnswer!]!
     getStudentsByOlympiadId(olympiadId: ID!): [StudentAnswer!]!
     getStudentsByStudentId(studentId: ID!): [StudentAnswer!]!
+    getStudentsByMandatNumber(mandatNumber: String!): [StudentAnswer!]!
+    getStudentsByRoomNumber(roomNumber: ID!): [StudentAnswer!]!
+    getMandatNumberForStudent(
+      studentId: ID!
+      classTypeId: ID!
+    ): MandatNumberInfo!
   }
 `;
