@@ -9,7 +9,7 @@ import {
   Olympiad,
   ClassYear,
   OlympiadStatus,
-  OlympiadRankingType
+  OlympiadRankingType,
 } from "@/generated";
 import { getRankingTypeDisplayName } from "@/utils/rankingUtils";
 import { OlympiadEditModal } from "./OlympiadEditModal";
@@ -35,7 +35,7 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
 
   // Filter olympiads for this organizer
   const myOlympiads = data?.allOlympiads?.filter(olympiad =>
-    olympiad.organizer?.id === organizerId
+    olympiad.organizer?.id === organizerId,
   ) || [];
 
   const filteredOlympiads = myOlympiads.filter((olympiad) => {
@@ -120,12 +120,12 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
       await updateOlympiadComprehensive({
         variables: {
           updateOlympiadComprehensiveId: olympiadId,
-          input: { status: newStatus }
-        }
+          input: { status: newStatus },
+        },
       });
       refetch();
     } catch (error) {
-      console.error("Status update failed:", error);
+      // console.error("Status update failed:", error);
     }
   };
 
@@ -137,17 +137,17 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
     setIsDeleting(true);
     try {
       await deleteOlympiad({
-        variables: { deleteOlympiadId: olympiadId }
+        variables: { deleteOlympiadId: olympiadId },
       });
       refetch();
     } catch (error) {
-      console.error("Delete failed:", error);
+      // console.error("Delete failed:", error);
     } finally {
       setIsDeleting(false);
     }
   };
 
-  const handleEdit = (olympiad: any) => {
+  const handleEdit = (olympiad: Olympiad) => {
     setSelectedOlympiad(olympiad);
     setIsEditing(true);
   };
@@ -377,7 +377,7 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
 
               <div className="flex space-x-2">
                 <button
-                  onClick={() => handleEdit(olympiad)}
+                  onClick={() => handleEdit(olympiad as Olympiad)}
                   className="px-3 py-1  text-[#ff8400] rounded-lg hover:bg-[#ff8400]/80 transition-colors text-sm flex items-center space-x-1"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -402,7 +402,7 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
       {/* Edit Modal */}
       {isEditing && selectedOlympiad && (
         <OlympiadEditModal
-          olympiad={selectedOlympiad as any}
+          olympiad={selectedOlympiad}
           isOpen={isEditing}
           onClose={() => {
             setIsEditing(false);

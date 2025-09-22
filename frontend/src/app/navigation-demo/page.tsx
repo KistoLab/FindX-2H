@@ -31,8 +31,8 @@ export default function NavigationDemo() {
         colors={["#ff8400", "#ffa500"]}
         logoUrl="/path-to-your-logo.svg"
         accentColor="#ff8400"
-        onMenuOpen={() => console.log("Menu opened")}
-        onMenuClose={() => console.log("Menu closed")}
+        onMenuOpen={() => {/* console.log("Menu opened") */}}
+        onMenuClose={() => {/* console.log("Menu closed") */}}
       />
 
       {/* Demo content */}

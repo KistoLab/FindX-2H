@@ -7,15 +7,15 @@ import { ManageResults } from "@/components/host/ManageResults";
 import HostProfile from "@/components/host/HostProfile";
 import HostSidebar from "@/components/host/HostSidebar";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
-import { useGetOrganizerQuery, ClassYear } from "@/generated";
+import { useGetOrganizerQuery, ClassYear, CreateClassTypeInput, CreateQuestionInput, OlympiadRankingType } from "@/generated";
 
 type TabType = "profile" | "create" | "manage" | "results";
 
 const HostPage = () => {
     const [activeTab, setActiveTab] = useState<TabType>("profile");
-    const [editingOlympiad, setEditingOlympiad] = useState<any>(null);
+    const [editingOlympiad, setEditingOlympiad] = useState<unknown>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+    const [_isDeleting, setIsDeleting] = useState(false);
 
     // Hardcoded organizer ID
     const ORGANIZER_ID = "68d0cfd354ab6e0a0d6237f8";
@@ -34,16 +34,15 @@ const HostPage = () => {
         location: "",
         organizerId: ORGANIZER_ID,
         invitation: false,
-        rankingType: "SCHOOL" as any,
+        rankingType: OlympiadRankingType.School,
     });
 
-    const [classTypes, setClassTypes] = useState<any[]>([
+    const [classTypes, setClassTypes] = useState<CreateClassTypeInput[]>([
         {
             classYear: ClassYear.Grade_5,
             maxScore: 20,
             medalists: 3,
             occurringTime: "9:00",
-            classRoom: null,
             questions: [
                 { questionName: "Question1", maxScore: 5 },
                 { questionName: "Question2", maxScore: 5 },
@@ -65,7 +64,7 @@ const HostPage = () => {
             location: "",
             organizerId: ORGANIZER_ID,
             invitation: false,
-            rankingType: "SCHOOL" as any,
+            rankingType: OlympiadRankingType.School,
         });
         setClassTypes([
             {
@@ -73,7 +72,6 @@ const HostPage = () => {
                 maxScore: 20,
                 medalists: 3,
                 occurringTime: "9:00",
-                classRoom: null,
                 questions: [
                     { questionName: "Question1", maxScore: 5 },
                     { questionName: "Question2", maxScore: 5 },
@@ -99,7 +97,7 @@ const HostPage = () => {
     };
 
 
-    const handleDeleteOlympiad = async (id: string) => {
+    const _handleDeleteOlympiad = async (_id: string) => {
         if (!confirm("Are you sure you want to delete this olympiad?")) {
             return;
         }
@@ -116,7 +114,7 @@ const HostPage = () => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
-    const updateClassType = (index: number, field: string, value: any) => {
+    const updateClassType = (index: number, field: string, value: string | number | ClassYear) => {
         const updated = classTypes.map((classType, i) =>
             i === index ? { ...classType, [field]: value } : classType,
         );
@@ -131,7 +129,6 @@ const HostPage = () => {
                 maxScore: 10,
                 medalists: 3,
                 occurringTime: "9:00",
-                classRoom: null,
                 questions: [
                     { questionName: "Question1", maxScore: 5 },
                     { questionName: "Question2", maxScore: 5 },
@@ -141,7 +138,7 @@ const HostPage = () => {
     };
 
     const removeClassType = (index: number) => {
-        setClassTypes(classTypes.filter((_: any, i: number) => i !== index));
+        setClassTypes(classTypes.filter((_: CreateClassTypeInput, i: number) => i !== index));
     };
 
     const addQuestion = (classTypeIndex: number) => {
@@ -152,7 +149,7 @@ const HostPage = () => {
         });
 
         const totalMaxScore = updated[classTypeIndex].questions.reduce(
-            (sum: number, question: any) => {
+            (sum: number, question: CreateQuestionInput) => {
                 const score = Number(question.maxScore) || 0;
                 return sum + score;
             },
@@ -167,10 +164,10 @@ const HostPage = () => {
         const updated = [...classTypes];
         updated[classTypeIndex].questions = updated[
             classTypeIndex
-        ].questions.filter((_: any, i: number) => i !== questionIndex);
+        ].questions.filter((_: CreateQuestionInput, i: number) => i !== questionIndex);
 
         const totalMaxScore = updated[classTypeIndex].questions.reduce(
-            (sum: number, question: any) => {
+            (sum: number, question: CreateQuestionInput) => {
                 const score = Number(question.maxScore) || 0;
                 return sum + score;
             },
@@ -185,13 +182,13 @@ const HostPage = () => {
         classTypeIndex: number,
         questionIndex: number,
         field: string,
-        value: any,
+        value: string | number,
     ) => {
         const updated = classTypes.map((classType, ctIndex) =>
             ctIndex === classTypeIndex
                 ? {
                     ...classType,
-                    questions: classType.questions.map((question: any, qIndex: number) =>
+                    questions: classType.questions.map((question: CreateQuestionInput, qIndex: number) =>
                         qIndex === questionIndex
                             ? { ...question, [field]: value }
                             : question,
@@ -202,7 +199,7 @@ const HostPage = () => {
 
         if (field === "maxScore") {
             const totalMaxScore = updated[classTypeIndex].questions.reduce(
-                (sum: number, question: any) => {
+                (sum: number, question: CreateQuestionInput) => {
                     const score = Number(question.maxScore) || 0;
                     return sum + score;
                 },
@@ -216,26 +213,26 @@ const HostPage = () => {
 
     const handleExportData = () => {
         // Handle export data functionality
-        console.log("Exporting data...");
+        // console.log("Exporting data...");
         // Add your export logic here
     };
 
     const handleQuickCreate = () => {
         // Handle quick create functionality
-        console.log("Quick create...");
+        // console.log("Quick create...");
         setActiveTab("create");
         // You could also reset form to default values for quick create
     };
 
     const handleExportResults = (olympiadId: string) => {
         // Handle export results functionality
-        console.log("Exporting results for olympiad:", olympiadId);
+        // console.log("Exporting results for olympiad:", olympiadId);
         // Add your export logic here
     };
 
     const handleViewResults = (olympiadId: string) => {
         // Handle view results functionality
-        console.log("Viewing results for olympiad:", olympiadId);
+        // console.log("Viewing results for olympiad:", olympiadId);
         // Add your view results logic here
     };
 
@@ -247,7 +244,7 @@ const HostPage = () => {
         { label: "Manage Results", ariaLabel: "Manage olympiad results", link: "#results" },
     ];
 
-    const socialItems: any[] = [];
+    const socialItems: { label: string; link: string }[] = [];
 
     // Handle menu item clicks to switch tabs
     const handleMenuClick = (link: string) => {
@@ -330,8 +327,8 @@ const HostPage = () => {
                     changeMenuColorOnOpen={true}
                     colors={["var(--card)", "var(--card)"]}
                     accentColor="#ff8400"
-                    onMenuOpen={() => console.log("Host menu opened")}
-                    onMenuClose={() => console.log("Host menu closed")}
+                    onMenuOpen={() => {/* console.log("Host menu opened") */}}
+                    onMenuClose={() => {/* console.log("Host menu closed") */}}
                     onMenuItemClick={handleMenuClick}
                 />
 

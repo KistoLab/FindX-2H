@@ -29,7 +29,6 @@ mutation FinishOlympiad($finishOlympiadId: ID!) {
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -42,7 +41,6 @@ mutation FinishOlympiad($finishOlympiadId: ID!) {
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType
@@ -111,7 +109,6 @@ mutation PreviewMedals($previewMedalsId: ID!) {
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -124,7 +121,6 @@ mutation PreviewMedals($previewMedalsId: ID!) {
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType
@@ -196,7 +192,6 @@ mutation UpdateMedalAssignments(
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -209,7 +204,6 @@ mutation UpdateMedalAssignments(
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType
@@ -279,7 +273,6 @@ mutation FinalizeMedals($finalizeMedalsId: ID!) {
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -292,7 +285,6 @@ mutation FinalizeMedals($finalizeMedalsId: ID!) {
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType

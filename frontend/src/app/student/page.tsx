@@ -36,7 +36,7 @@ const StudentPage = () => {
     | "achievements"
     | "settings"
   >("profile");
-  const [selectedOlympiad, setSelectedOlympiad] = useState<any>(null);
+  const [selectedOlympiad, setSelectedOlympiad] = useState<unknown>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // StaggeredMenu configuration
@@ -61,7 +61,7 @@ const StudentPage = () => {
     { label: "Settings", ariaLabel: "Manage your settings", link: "#settings" },
   ];
 
-  const socialItems: any[] = [];
+  const socialItems: { label: string; link: string }[] = [];
 
   // Handle menu item clicks to switch tabs
   const handleMenuClick = (link: string) => {
@@ -81,7 +81,7 @@ const StudentPage = () => {
     }
   };
   const [showGradeSelectionModal, setShowGradeSelectionModal] = useState(false);
-  const [selectedClassType, setSelectedClassType] = useState<any>(null);
+  const [selectedClassType, setSelectedClassType] = useState<unknown>(null);
 
   // Get student ID from centralized configuration
   const studentId = "68ce9f79038c70f37d8fe031";
@@ -105,24 +105,24 @@ const StudentPage = () => {
   const student = studentData?.getStudent;
   const olympiads = olympiadsData?.allOlympiads || [];
 
-  const handleViewDetails = (olympiad: any) => {
+  const handleViewDetails = (olympiad: unknown) => {
     setSelectedOlympiad(olympiad);
     setShowDetailsModal(true);
   };
 
-  const handleRegister = (olympiad: any) => {
+  const handleRegister = (olympiad: unknown) => {
     setSelectedOlympiad(olympiad);
     setShowGradeSelectionModal(true);
   };
 
-  const handleGradeSelection = async (classType: any) => {
+  const handleGradeSelection = async (classType: unknown) => {
     try {
       const result = await registerForOlympiad({
         variables: {
           input: {
             studentId: studentId,
-            classTypeId: classType.id,
-            olympiadId: selectedOlympiad.id,
+            classTypeId: (classType as { id: string }).id,
+            olympiadId: (selectedOlympiad as { id: string }).id,
           },
         },
       });
@@ -136,24 +136,24 @@ const StudentPage = () => {
         setSelectedClassType(null);
         // Close the modal and let the user continue without refreshing
       }
-    } catch (error: any) {
-      showError(`Registration failed: ${error.message}`, "Registration Error");
+    } catch (error: unknown) {
+      showError(`Registration failed: ${(error as Error).message}`, "Registration Error");
     }
   };
 
-  const getAvailableGrades = (olympiad: any) => {
+  const getAvailableGrades = (olympiad: unknown) => {
     if (!student?.class) return [];
 
     const studentGradeNum = parseInt(student.class.replace("GRADE_", ""));
-    return olympiad.classtypes.filter((ct: any) => {
-      const classGradeNum = parseInt(ct.classYear.replace("GRADE_", ""));
+    return (olympiad as { classtypes: unknown[] }).classtypes.filter((ct: unknown) => {
+      const classGradeNum = parseInt((ct as { classYear: string }).classYear.replace("GRADE_", ""));
       return classGradeNum >= studentGradeNum;
     });
   };
 
-  const isStudentRegistered = (olympiad: any) => {
+  const isStudentRegistered = (olympiad: unknown) => {
     if (!student?.participatedOlympiads) return false;
-    return student.participatedOlympiads.includes(olympiad.id);
+    return student.participatedOlympiads.includes((olympiad as { id: string }).id);
   };
 
   const renderContent = () => {
@@ -222,8 +222,8 @@ const StudentPage = () => {
         changeMenuColorOnOpen={true}
         colors={["var(--card)", "var(--card)"]}
         accentColor="#ff8400"
-        onMenuOpen={() => console.log("Student menu opened")}
-        onMenuClose={() => console.log("Student menu closed")}
+        onMenuOpen={() => {/* console.log("Student menu opened") */ }}
+        onMenuClose={() => {/* console.log("Student menu closed") */ }}
         onMenuItemClick={handleMenuClick}
       />
 

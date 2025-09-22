@@ -28,7 +28,6 @@ mutation CreateOrganizer($input: CreateOrganizerInput!) {
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -41,7 +40,6 @@ mutation CreateOrganizer($input: CreateOrganizerInput!) {
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType
@@ -81,7 +79,6 @@ mutation UpdateOrganizer($updateOrganizerId: ID!, $input: UpdateOrganizerInput!)
           maxScore
         }
         medalists
-        participants
         studentsAnswers
         olympiadId
         bestMaterials {
@@ -94,7 +91,6 @@ mutation UpdateOrganizer($updateOrganizerId: ID!, $input: UpdateOrganizerInput!)
         bronze
         top10
       }
-      participants
       scoreOfAward
       status
       rankingType

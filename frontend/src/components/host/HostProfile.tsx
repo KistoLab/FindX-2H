@@ -18,8 +18,8 @@ const HostProfile = ({ organizerId }: HostProfileProps) => {
 
     const { data: organizerData, loading, error, refetch } = useGetOrganizerQuery({
         variables: { getOrganizerId: organizerId },
-        errorPolicy: 'all',
-        fetchPolicy: 'cache-and-network'
+        errorPolicy: "all",
+        fetchPolicy: "cache-and-network",
     });
 
     const organizer = organizerData?.getOrganizer;
@@ -61,29 +61,29 @@ const HostProfile = ({ organizerId }: HostProfileProps) => {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'OPEN':
-                return 'bg-green-100 text-green-800 border-green-200';
-            case 'UNDER_REVIEW':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'CLOSED':
-                return 'bg-gray-100 text-gray-800 border-gray-200';
-            case 'FINISHED':
-                return 'bg-blue-100 text-blue-800 border-blue-200';
+            case "OPEN":
+                return "bg-green-100 text-green-800 border-green-200";
+            case "UNDER_REVIEW":
+                return "bg-yellow-100 text-yellow-800 border-yellow-200";
+            case "CLOSED":
+                return "bg-gray-100 text-gray-800 border-gray-200";
+            case "FINISHED":
+                return "bg-blue-100 text-blue-800 border-blue-200";
             default:
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+                return "bg-gray-100 text-gray-800 border-gray-200";
         }
     };
 
     const getStatusText = (status: string) => {
         switch (status) {
-            case 'OPEN':
-                return 'Active';
-            case 'UNDER_REVIEW':
-                return 'Under Review';
-            case 'CLOSED':
-                return 'Closed';
-            case 'FINISHED':
-                return 'Finished';
+            case "OPEN":
+                return "Active";
+            case "UNDER_REVIEW":
+                return "Under Review";
+            case "CLOSED":
+                return "Closed";
+            case "FINISHED":
+                return "Finished";
             default:
                 return status;
         }
@@ -102,16 +102,16 @@ const HostProfile = ({ organizerId }: HostProfileProps) => {
                                 className="w-full h-full object-cover rounded-2xl"
                                 onError={(e) => {
                                     // Fallback to default icon if image fails to load
-                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.style.display = "none";
                                     const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
                                     if (nextElement) {
-                                        nextElement.style.display = 'block';
+                                        nextElement.style.display = "block";
                                     }
                                 }}
                             />
                         ) : null}
                         <svg
-                            className={`w-10 h-10 text-primary ${organizer.logo ? 'hidden' : ''}`}
+                            className={`w-10 h-10 text-primary ${organizer.logo ? "hidden" : ""}`}
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

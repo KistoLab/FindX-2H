@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Modal } from "@/components/ui/modal";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import { Badge } from "@/components/ui/badge";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
 import {
   Calendar,
   MapPin,
@@ -15,10 +15,9 @@ import {
   BookOpen,
   Award,
   Building,
-  Mail
+  Mail,
 } from "lucide-react";
 import { GetOlympiadDocument } from "@/generated";
-import { ClassYear } from "@/generated";
 
 interface OlympiadDetailModalProps {
   isOpen: boolean;
@@ -46,7 +45,7 @@ const formatTime = (timeString: string | null) => {
   return timeString;
 };
 
-const getStatusColor = (status: string) => {
+const _getStatusColor = (status: string) => {
   switch (status) {
     case "OPEN":
       return "bg-green-100 text-green-800 border-green-200";
@@ -61,7 +60,7 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const getStatusText = (status: string) => {
+const _getStatusText = (status: string) => {
   switch (status) {
     case "OPEN":
       return "Open";
@@ -76,7 +75,7 @@ const getStatusText = (status: string) => {
   }
 };
 
-const formatClassYear = (classYear: string) => {
+const _formatClassYear = (classYear: string) => {
   return classYear.replace("GRADE_", "Grade ").replace("_CLASS", " Class");
 };
 
@@ -85,7 +84,7 @@ export const OlympiadDetailModal = ({
   onClose,
   olympiadId
 }: OlympiadDetailModalProps) => {
-  const { data, loading, error } = useQuery(GetOlympiadDocument, {
+  const { data, loading, error: _error } = useQuery(GetOlympiadDocument, {
     variables: { olympiadId },
     skip: !isOpen || !olympiadId,
   });
@@ -103,11 +102,11 @@ export const OlympiadDetailModal = ({
     );
   }
 
-  if (error) {
+  if (_error) {
     return (
       <Modal isOpen={isOpen} onClose={onClose} title="Olympiad Details" size="lg">
         <div className="text-center py-8">
-          <p className="text-red-500">Error loading olympiad details: {error.message}</p>
+          <p className="text-red-500">Error loading olympiad details: {_error.message}</p>
         </div>
       </Modal>
     );
@@ -145,33 +144,44 @@ export const OlympiadDetailModal = ({
             <span>Class Types</span>
           </h3>
           <div className="space-y-3">
-            {olympiad.classtypes?.map((classType: any, index: number) => (
-              <div key={classType.id} className="border-2 rounded-lg border-gray-600 pl-3  p-2">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-sm font-medium text-white">
-                    {formatClassYear(classType.classYear)}
-                  </h4>
-                  <div className="flex items-center space-x-3 text-xs text-gray-300">
-                    <span>{classType.medalists} medalists</span>
-                    <span>{classType.participants?.length || 0} participants</span>
-                    <span>{formatTime(classType.occurringTime)}</span>
+            {olympiad.classtypes?.map((classType: unknown, _index: number) => {
+              const ct = classType as { 
+                id: string; 
+                classYear: string; 
+                medalists: number; 
+                participants?: unknown[]; 
+                occurringTime?: string; 
+                maxScore: number; 
+                questions?: { id: string; questionName: string; maxScore: number }[] 
+              };
+              return (
+                <div key={ct.id} className="border-2 rounded-lg border-gray-600 pl-3  p-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-white">
+                      {_formatClassYear(ct.classYear)}
+                    </h4>
+                    <div className="flex items-center space-x-3 text-xs text-gray-300">
+                      <span>{ct.medalists} medalists</span>
+                      <span>{ct.participants?.length || 0} participants</span>
+                      <span>{formatTime(ct.occurringTime || null)}</span>
+                    </div>
                   </div>
+                  <p className="text-xs text-gray-300 mb-2">
+                    Max Score: <span className="text-white font-medium">{ct.maxScore}</span>
+                  </p>
+                  {ct.questions && ct.questions.length > 0 && (
+                    <div className="grid grid-cols-2 gap-1">
+                      {ct.questions.map((question, _qIndex: number) => (
+                        <div key={question.id} className="flex items-center justify-between text-xs">
+                          <span className="text-gray-300">{question.questionName}</span>
+                          <span className="text-gray-400">{question.maxScore} pts</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs text-gray-300 mb-2">
-                  Max Score: <span className="text-white font-medium">{classType.maxScore}</span>
-                </p>
-                {classType.questions && classType.questions.length > 0 && (
-                  <div className="grid grid-cols-2 gap-1">
-                    {classType.questions.map((question: any, qIndex: number) => (
-                      <div key={question.id} className="flex items-center justify-between text-xs">
-                        <span className="text-gray-300">{question.questionName}</span>
-                        <span className="text-gray-400">{question.maxScore} pts</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
