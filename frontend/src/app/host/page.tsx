@@ -9,6 +9,7 @@ import { ManageResults } from "@/components/host/ManageResults";
 import HostSidebar from "@/components/host/HostSidebar";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { useGetOrganizerQuery } from "@/generated";
+import { getCurrentOrganizerId } from "@/config/host";
 
 type TabType = "create" | "manage" | "results";
 
@@ -18,12 +19,12 @@ const HostPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
-    // Hardcoded organizer ID
-    const ORGANIZER_ID = "68ce60987f494f963e88a8cb";
+    // Get organizer ID from configuration
+    const ORGANIZER_ID = getCurrentOrganizerId();
 
     // Fetch real data from database
     const { data: organizerData, loading: organizerLoading, error: organizerError, refetch } = useGetOrganizerQuery({
-        variables: { id: ORGANIZER_ID },
+        variables: { getOrganizerId: ORGANIZER_ID },
         errorPolicy: 'all'
     });
 
@@ -40,7 +41,7 @@ const HostPage = () => {
 
     const [classTypes, setClassTypes] = useState<any[]>([
         {
-            classYear: "Grade_5",
+            classYear: "GRADE_5",
             maxScore: 20,
             medalists: 3,
             occurringTime: "9:00",
@@ -70,7 +71,7 @@ const HostPage = () => {
         });
         setClassTypes([
             {
-                classYear: "Grade_5",
+                classYear: "GRADE_5",
                 maxScore: 20,
                 medalists: 3,
                 occurringTime: "9:00",
@@ -128,7 +129,7 @@ const HostPage = () => {
         setClassTypes([
             ...classTypes,
             {
-                classYear: "Grade_5",
+                classYear: "GRADE_5",
                 maxScore: 10,
                 medalists: 3,
                 occurringTime: "9:00",

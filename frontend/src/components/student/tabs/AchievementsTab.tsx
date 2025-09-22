@@ -161,7 +161,7 @@ const AchievementsTab = () => {
   const medalWinners = useMemo(() => {
     if (!studentsData?.getAllStudent) return [];
 
-    return studentsData.getAllStudent.filter(
+    return (studentsData.getAllStudent as unknown as MedalWinner[]).filter(
       (student: any) =>
         student.gold.length > 0 ||
         student.silver.length > 0 ||

@@ -70,6 +70,11 @@ export const OlympiadForm = ({
       return;
     }
 
+    if (!formData.organizerId) {
+      alert("Organizer ID is required.");
+      return;
+    }
+
     if (classTypes.length === 0) {
       alert("Please add at least one class type.");
       return;
@@ -218,6 +223,18 @@ export const OlympiadForm = ({
             </div>
 
             <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  id="invitation"
+                  checked={formData.invitation}
+                  onChange={(e) => onUpdateFormData("invitation", e.target.checked)}
+                  className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary"
+                />
+                <label htmlFor="invitation" className="text-sm font-medium text-foreground">
+                  Require invitation to participate
+                </label>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Ranking Type *
@@ -238,18 +255,7 @@ export const OlympiadForm = ({
                 </select>
               </div>
 
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  id="invitation"
-                  checked={formData.invitation}
-                  onChange={(e) => onUpdateFormData("invitation", e.target.checked)}
-                  className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary"
-                />
-                <label htmlFor="invitation" className="text-sm font-medium text-foreground">
-                  Require invitation to participate
-                </label>
-              </div>
+             
             </div>
           </div>
         </Step>

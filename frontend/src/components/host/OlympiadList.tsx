@@ -4,7 +4,7 @@ import { useState } from "react";
 import { 
   useUpdateOlympiadComprehensiveMutation,
   useDeleteOlympiadMutation,
-  useGetAllClassRoomsQuery,
+  useAllClassRoomsQuery,
   Olympiad,
   ClassYear,
   OlympiadStatus,
@@ -37,7 +37,7 @@ export const OlympiadList = ({
 
   const [updateOlympiadComprehensive] = useUpdateOlympiadComprehensiveMutation();
   const [deleteOlympiad] = useDeleteOlympiadMutation();
-  const { data: classRoomsData } = useGetAllClassRoomsQuery();
+  const { data: classRoomsData } = useAllClassRoomsQuery();
 
   const getStatusColor = (status: OlympiadStatus) => {
     switch (status) {
@@ -124,7 +124,7 @@ export const OlympiadList = ({
 
       await updateOlympiadComprehensive({
         variables: {
-          id: olympiadId,
+          updateOlympiadComprehensiveId: olympiadId,
           input: { 
             [field]: value,
             ...(olympiad.location && { location: olympiad.location }) // Only include location if it exists
@@ -141,7 +141,7 @@ export const OlympiadList = ({
     if (window.confirm("Are you sure you want to delete this olympiad?")) {
       try {
         await deleteOlympiad({
-          variables: { id: olympiadId }
+          variables: { deleteOlympiadId: olympiadId }
         });
         onRefetch();
       } catch (error) {

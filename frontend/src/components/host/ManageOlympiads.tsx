@@ -117,7 +117,7 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
     try {
       await updateOlympiadComprehensive({
         variables: {
-          id: olympiadId,
+          updateOlympiadComprehensiveId: olympiadId,
           input: { status: newStatus }
         }
       });
@@ -135,7 +135,7 @@ export const ManageOlympiads = ({ organizerId }: ManageOlympiadsProps) => {
     setIsDeleting(true);
     try {
       await deleteOlympiad({
-        variables: { id: olympiadId }
+        variables: { deleteOlympiadId: olympiadId }
       });
       refetch();
     } catch (error) {

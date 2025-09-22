@@ -75,7 +75,7 @@ export const OlympiadEditModal = ({
           classYear: ct.classYear,
           maxScore: calculatedMaxScore, // Use calculated value instead of stored value
           occurringTime: ct.occurringTime || "",
-          classRoom: ct.classRoom?.id || null,
+          classRoom: null, // ClassRoom is not part of ClassType schema
           medalists: ct.medalists,
           questions: questions,
         };
@@ -93,7 +93,7 @@ export const OlympiadEditModal = ({
     try {
       await updateOlympiadComprehensive({
         variables: {
-          id: olympiad.id,
+          updateOlympiadComprehensiveId: olympiad.id,
         input: {
           ...formData,
           location: formData.location,
@@ -106,7 +106,7 @@ export const OlympiadEditModal = ({
             occurringTime: ct.occurringTime,
             classRoom: ct.classRoom,
             medalists: ct.medalists,
-            questions: ct.questions.map(q => ({
+            questions: ct.questions.map((q: any) => ({
               id: q.id,
               questionName: q.questionName,
               maxScore: q.maxScore,
@@ -167,7 +167,7 @@ export const OlympiadEditModal = ({
 
   const removeQuestion = (classTypeIndex: number, questionIndex: number) => {
     const updated = [...classTypes];
-    updated[classTypeIndex].questions = updated[classTypeIndex].questions.filter((_, i) => i !== questionIndex);
+    updated[classTypeIndex].questions = updated[classTypeIndex].questions.filter((_: any, i: number) => i !== questionIndex);
     
     // Calculate total maxScore from all questions
     const totalMaxScore = updated[classTypeIndex].questions.reduce(
@@ -468,7 +468,7 @@ export const OlympiadEditModal = ({
                       </div>
 
                       <div className="space-y-2">
-                        {classType.questions.map((question, questionIndex) => (
+                        {classType.questions.map((question: any, questionIndex: number) => (
                           <div key={questionIndex} className="flex items-center space-x-2">
                             <input
                               type="text"

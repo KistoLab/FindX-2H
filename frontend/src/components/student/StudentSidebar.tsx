@@ -249,7 +249,7 @@ export const StudentSidebar = ({
                   {student.school} • Grade {student.class}
                 </p>
                 <p className="text-xs text-muted-foreground/80 truncate">
-                  {student.district}, {getProvinceName(student.province)}
+                  {getProvinceName(student.province)}
                 </p>
               </div>
             </div>
