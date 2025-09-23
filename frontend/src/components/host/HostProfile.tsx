@@ -169,7 +169,7 @@ const HostProfile = ({ organizerId, onNavigateToManage }: HostProfileProps) => {
                                         <span className="px-3 py-1 rounded-full text-sm font-medium  bg-[#ff8400] text-white">
                                             {olympiad.status === 'OPEN' ? 'Идэвхитэй' :
                                                 olympiad.status === 'FINISHED' ? 'Дууссан' :
-                                                    olympiad.status === 'CLOSED' ? 'Хаагдсан' :
+                                                    olympiad.status === 'CLOSED' ? 'Бүртгэл дууссан' :
                                                         olympiad.status === 'DRAFT' ? 'Идэвхигүй' :
                                                             olympiad.status}
                                         </span>

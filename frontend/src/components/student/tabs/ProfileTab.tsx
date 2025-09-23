@@ -74,8 +74,8 @@ const ProfileTab = ({ student, loading, error }: ProfileTabProps) => {
 
   const totalMedals =
     Array.isArray(student.gold) &&
-    Array.isArray(student.silver) &&
-    Array.isArray(student.bronze)
+      Array.isArray(student.silver) &&
+      Array.isArray(student.bronze)
       ? student.gold.length + student.silver.length + student.bronze.length
       : 0;
 
@@ -145,8 +145,8 @@ const ProfileTab = ({ student, loading, error }: ProfileTabProps) => {
                       />
                     </svg>
                     <span className="truncate">
-                      {student.school} • Grade{" "}
-                      {student.class.replace("GRADE_", "")}
+                      {student.school} • {" "}
+                      {student.class.replace("GRADE_", "")}-р анги
                     </span>
                   </p>
                   <p className="text-gray-800 text-lg sm:text-xl flex items-center justify-center lg:justify-start">
@@ -302,17 +302,17 @@ const ProfileTab = ({ student, loading, error }: ProfileTabProps) => {
                 <div className="text-2xl font-bold text-[#FF8400]">
                   {student?.rankingHistory && student.rankingHistory.length > 0
                     ? (() => {
-                        const lastEntry =
-                          student.rankingHistory[
-                            student.rankingHistory.length - 1
-                          ];
-                        const change = lastEntry.changedBy;
-                        return change > 0
-                          ? `+${change}`
-                          : change < 0
+                      const lastEntry =
+                        student.rankingHistory[
+                        student.rankingHistory.length - 1
+                        ];
+                      const change = lastEntry.changedBy;
+                      return change > 0
+                        ? `+${change}`
+                        : change < 0
                           ? `${change}`
                           : "0";
-                      })()
+                    })()
                     : "0"}
                 </div>
 

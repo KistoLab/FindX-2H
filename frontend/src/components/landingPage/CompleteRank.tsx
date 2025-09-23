@@ -185,7 +185,7 @@ export const CompleteRank = () => {
       <div className="text-center mt-8">
         <Button
           onClick={handleClickViewAllRankings}
-          className="inline-flex bg-transparent border border-gray-300 items-center space-x-2 text-black font-medium hover:bg-[#ff8400]  hover:text-white"
+          className="inline-flex bg-transparent bg-white border border-gray-300 items-center space-x-2 text-black font-medium hover:bg-[#ff8400]  hover:text-white"
         >
           <Users className="w-4 h-4" />
           <span>Бүх сурагчидын эрэмбэ</span>

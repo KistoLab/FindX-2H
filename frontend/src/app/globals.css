@@ -201,9 +201,7 @@
     text-decoration: none;
   }
 
-  a:hover {
-    text-decoration: underline;
-  }
+
 
   /* Focus states for accessibility */
   *:focus-visible {

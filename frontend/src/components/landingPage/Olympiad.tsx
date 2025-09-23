@@ -74,7 +74,7 @@ const getStatusDisplayName = (status: string) => {
     case "OPEN":
       return "Нээлттэй";
     case "CLOSED":
-      return "Хаагдсан";
+      return "Бүртгэл дууссан";
     case "FINISHED":
       return "Дууссан";
     case "DRAFT":
@@ -269,7 +269,7 @@ export const Olympiad = () => {
                           onClick={(e) => toggleDescription(olympiad.id, e)}
                           className="ml-2 text-[#ff8400] hover:text-[#ff8400] font-medium transition-colors duration-200 inline-block"
                         >
-                          {isExpanded ? "Хумих" : "Дэлгэрэнгүй"}
+                          {isExpanded ? "Буцах" : "Дэлгэрэнгүй"}
                         </button>
                       )}
                     </CardDescription>
