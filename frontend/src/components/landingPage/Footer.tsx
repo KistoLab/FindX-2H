@@ -4,21 +4,21 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 export type LogoItem =
   | {
-      node: React.ReactNode;
-      href?: string;
-      title?: string;
-      ariaLabel?: string;
-    }
+    node: React.ReactNode;
+    href?: string;
+    title?: string;
+    ariaLabel?: string;
+  }
   | {
-      src: string;
-      alt?: string;
-      href?: string;
-      title?: string;
-      srcSet?: string;
-      sizes?: string;
-      width?: number;
-      height?: number;
-    };
+    src: string;
+    alt?: string;
+    href?: string;
+    title?: string;
+    srcSet?: string;
+    sizes?: string;
+    width?: number;
+    height?: number;
+  };
 
 export interface LogoLoopProps {
   logos: LogoItem[];
@@ -274,7 +274,7 @@ const LogoLoop: React.FC<LogoLoopProps> = ({
             "inline-flex items-center",
             "motion-reduce:transition-none",
             scaleOnHover &&
-              "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-110",
+            "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-110",
           )}
           aria-hidden={!!(item as any).href && !(item as any).ariaLabel}
         >
@@ -467,7 +467,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer 
+    <footer
       className="text-black py-8"
       style={{
         backgroundImage: `
@@ -482,7 +482,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4">
         {/* Partner Logos Section */}
         <div className="text-center mb-4">
-          <h3 className="text-lg font-semibold text-black mb-3">Тэргүүлэгч байгууллагуудын итгэлийг хүлээсэн.</h3>
+          <h3 className="text-lg font-semibold text-black mb-3">Trusted by Leading Organizations</h3>
           <div className="rounded-xl p-4">
             <LogoLoop
               logos={logos}
@@ -505,7 +505,7 @@ export default function Footer() {
         <div className="pt-3">
           <div className="text-center">
             <div className="text-black text-lg font-medium font-sans">
-            © 2025 FindX. Бүх эрх хуулиар хамгаалагдсан. | Боловсролын төлөө хүсэл эрмэлзлээр бүтээгдсэн.
+              © 2025 FindX. All rights reserved. | Built with passion for education.
             </div>
           </div>
         </div>

@@ -57,7 +57,7 @@ export const StudentProfileHeader = ({
     const olympiad = olympiadsData?.allOlympiads?.find(
       (o: any) => o.id === olympiadId
     );
-    return olympiad?.name || `Olympiad ${olympiadId.slice(-4)}`;
+    return olympiad?.name || `Олимпиад ${olympiadId.slice(-4)}`;
   };
 
   // Get recent activity (last 3 ranking changes)
@@ -65,13 +65,13 @@ export const StudentProfileHeader = ({
 
   // Helper function to safely format dates
   const formatDate = (dateString: string) => {
-    if (!dateString) return "N/A";
+    if (!dateString) return "Тодорхойгүй";
     try {
       const date = new Date(dateString);
-      if (isNaN(date.getTime())) return "Invalid Date";
+      if (isNaN(date.getTime())) return "Буруу огноо";
       return date.toLocaleDateString();
     } catch (error) {
-      return "Invalid Date";
+      return "Буруу огноо";
     }
   };
   return (
@@ -140,7 +140,9 @@ export const StudentProfileHeader = ({
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                   />
                 </svg>
-                {student.school} • {formatGrade(student.class)}
+                {student.school} •<span>
+                  {student.class.replace("Grade", "")}-р анги
+                </span>
               </span>
             </div>
           </div>
@@ -165,7 +167,7 @@ export const StudentProfileHeader = ({
             <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
               <div className="bg-gray-900 text-white text-xs rounded-lg py-2 px-3 shadow-lg max-w-xs">
                 <div className="font-semibold mb-2 text-center">
-                  Recent Activity
+                  Сүүлийн үйл ажиллагаа
                 </div>
                 <div className="space-y-1">
                   {recentActivity.map((activity: any, index: number) => (

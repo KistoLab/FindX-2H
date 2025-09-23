@@ -77,11 +77,10 @@ const OlympiadDetailsModal = ({
                   Төлөв
                 </h4>
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                    olympiad.status === "APPROVED"
+                  className={`px-3 py-1 rounded-full text-sm font-semibold ${olympiad.status === "APPROVED"
                       ? "bg-green-100 text-green-800"
                       : "bg-yellow-100 text-yellow-800"
-                  }`}
+                    }`}
                 >
                   {olympiad.status}
                 </span>
@@ -96,11 +95,10 @@ const OlympiadDetailsModal = ({
                 {olympiad.classtypes.map((classType: any) => (
                   <span
                     key={classType.id}
-                    className={`px-3 py-1 rounded-full text-base font-medium ${
-                      String(classType.classYear) === String(student?.class)
+                    className={`px-3 py-1 rounded-full text-base font-medium ${String(classType.classYear) === String(student?.class)
                         ? "bg-[#FF8400]/10 text-[#FF8400]"
                         : "bg-gray-100 text-gray-600"
-                    }`}
+                      }`}
                   >
                     {classType.classYear.replace("GRADE_", "Grade ")}
                   </span>
@@ -149,11 +147,10 @@ const OlympiadDetailsModal = ({
           <div className="mt-6 flex space-x-3">
             <button
               onClick={onClose}
-              className={`flex-1 px-4 py-2 rounded-lg transition-colors duration-200 ${
-                isStudentRegistered
+              className={`flex-1 px-4 py-2 rounded-lg transition-colors duration-200 ${isStudentRegistered
                   ? "bg-[#FF8400] text-white hover:bg-[#FF8400]/90 border-0 outline-none"
                   : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-              }`}
+                }`}
               style={
                 isStudentRegistered
                   ? { backgroundColor: "#FF8400", color: "white" }
@@ -164,7 +161,7 @@ const OlympiadDetailsModal = ({
             </button>
             {isStudentRegistered ? (
               <button className="flex-1 bg-gray-200 text-gray-600 px-4 py-2 rounded-lg cursor-not-allowed border-0 outline-none">
-                Аль хэдийн бүртгэлтэй
+                Бүртгэгдсэн
               </button>
             ) : (
               <button

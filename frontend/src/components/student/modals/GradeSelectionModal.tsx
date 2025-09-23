@@ -154,22 +154,20 @@ const GradeSelectionModal: React.FC<GradeSelectionModalProps> = ({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ scale: 1.02 }}
-                      className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
-                        selectedClassType?.id === classType.id
+                      className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${selectedClassType?.id === classType.id
                           ? "shadow-lg border-[#FF8400] bg-[#FF8400]/10"
                           : "border-gray-200 hover:border-[#FF8400]/30 hover:shadow-md"
-                      }`}
+                        }`}
                       onClick={() => onSelectClassType(classType)}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
                             <div
-                              className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                                selectedClassType?.id === classType.id
+                              className={`w-8 h-8 rounded-full flex items-center justify-center ${selectedClassType?.id === classType.id
                                   ? "bg-[#FF8400]"
                                   : "bg-gray-200"
-                              }`}
+                                }`}
                             >
                               {selectedClassType?.id === classType.id ? (
                                 <CheckCircle className="w-5 h-5 text-white" />
@@ -178,7 +176,7 @@ const GradeSelectionModal: React.FC<GradeSelectionModalProps> = ({
                               )}
                             </div>
                             <h5 className="text-xl font-semibold text-gray-800">
-                              {classType.classYear.replace("GRADE_", "Grade ")}
+                              {classType.classYear.replace("GRADE_", "Анги ")}
                             </h5>
                           </div>
                           <div className="flex items-center space-x-4 text-base text-gray-600">
@@ -192,11 +190,10 @@ const GradeSelectionModal: React.FC<GradeSelectionModalProps> = ({
                           </div>
                         </div>
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                            selectedClassType?.id === classType.id
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedClassType?.id === classType.id
                               ? "border-[#FF8400] bg-[#FF8400]"
                               : "border-gray-300"
-                          }`}
+                            }`}
                         >
                           {selectedClassType?.id === classType.id && (
                             <div className="w-2 h-2 bg-white rounded-full"></div>

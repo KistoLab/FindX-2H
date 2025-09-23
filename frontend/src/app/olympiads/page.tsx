@@ -156,21 +156,21 @@ const AllOlympiadsPage = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "OPEN":
-        return "bg-green-100 text-green-800 border-green-200";
+        return "bg-[#ff8400] text-white border-green-200";
       case "CLOSED":
-        return "bg-red-100 text-red-800 border-red-200";
+        return "bg-[#ff8400] text-white border-red-200";
       case "FINISHED":
-        return "bg-blue-100 text-blue-800 border-blue-200";
+        return "bg-[#ff8400] text-white border-blue-200";
       case "CANCELLED":
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-[#ff8400] text-white border-gray-200";
       case "DRAFT":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-[#ff8400] text-white border-yellow-200";
       case "UNDER_REVIEW":
-        return "bg-purple-100 text-purple-800 border-purple-200";
+        return "bg-[#ff8400] text-white border-purple-200";
       case "MEDALS_PREVIEW":
-        return "bg-orange-100 text-orange-800 border-orange-200";
+        return "bg-[#ff8400] text-white border-orange-200";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-[#ff8400] text-white border-gray-200";
     }
   };
 
@@ -179,7 +179,7 @@ const AllOlympiadsPage = () => {
       case "OPEN":
         return "Нээлттэй";
       case "CLOSED":
-        return "Хаагдсан";
+        return "Бүртгэл дууссан";
       case "FINISHED":
         return "Дууссан";
       case "CANCELLED":
@@ -284,28 +284,13 @@ const AllOlympiadsPage = () => {
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 Бүх олимпиадуудын мэдээллүүд
               </h1>
-
-              <div className="flex items-center gap-4 mt-4">
-                <Badge
-                  variant="outline"
-                  className="text-sm text-black border-gray-300"
-                >
-                  {filteredAndSortedOlympiads.length} Нийт олимпиадуудын тоо
-                </Badge>
-                <Badge
-                  variant="outline"
-                  className="text-sm text-black border-gray-300"
-                >
-                  {olympiads.length} Оролцох боломжтой олимпиадууд
-                </Badge>
-              </div>
             </div>
 
             <div className="flex items-center gap-3">
               <Button
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 text-black border-gray-300"
+                className="flex items-center bg-white gap-2 text-black border-gray-300"
               >
                 <Filter className="h-4 w-4" />
                 Шүүлтүүрүүд
@@ -445,22 +430,6 @@ const AllOlympiadsPage = () => {
             )}
           </AnimatePresence>
 
-          {/* <div className="mt-4 flex items-center gap-4">
-            <label className="text-sm font-medium text-gray-700">
-              Sort by:
-            </label>
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-48">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name">Name (A-Z)</SelectItem>
-                <SelectItem value="date">Date</SelectItem>
-                <SelectItem value="status">Status</SelectItem>
-                <SelectItem value="organizer">Organizer</SelectItem>
-              </SelectContent>
-            </Select>
-          </div> */}
         </div>
       </div>
 
@@ -529,19 +498,19 @@ const AllOlympiadsPage = () => {
 
                       <div className="space-y-3 mb-4 flex-1">
                         <div className="flex items-center gap-3 text-sm text-gray-600">
-                          <Calendar className="h-4 w-4 text-blue-500" />
+                          <Calendar className="h-4 w-4 text-black" />
                           <span>{formatDate(olympiad.occurringDay)}</span>
                         </div>
 
                         <div className="flex items-center gap-3 text-sm text-gray-600">
-                          <MapPin className="h-4 w-4 text-green-500" />
+                          <MapPin className="h-4 w-4 text-black" />
                           <span className="line-clamp-1">
                             {olympiad.location || "Байршил олдсонгүй"}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-3 text-sm text-gray-600">
-                          <Building2 className="h-4 w-4 text-purple-500" />
+                          <Building2 className="h-4 w-4 text-black" />
                           <span className="line-clamp-1">
                             {olympiad.organizer?.organizationName ||
                               "Зохион байгуулагч олдсонгүй"}
@@ -550,14 +519,14 @@ const AllOlympiadsPage = () => {
 
                         {olympiad.rankingType && (
                           <div className="flex items-center gap-3 text-sm text-gray-600">
-                            <Trophy className="h-4 w-4 text-yellow-500" />
+                            <Trophy className="h-4 w-4 text-black" />
                             <span>{getRankingTypeDisplayName(olympiad.rankingType)}</span>
                           </div>
                         )}
 
                         {olympiad.scoreOfAward && (
                           <div className="flex items-center gap-3 text-sm text-gray-600">
-                            <Award className="h-4 w-4 text-orange-500" />
+                            <Award className="h-4 w-4 text-black" />
                             <span>Дүн: {olympiad.scoreOfAward}</span>
                           </div>
                         )}
@@ -568,14 +537,8 @@ const AllOlympiadsPage = () => {
                           <div className="mb-4">
                             <div className="flex items-center justify-between mb-2">
                               <span className="text-sm font-medium text-gray-700">
-                                Ангиуд
+                                Ангилал
                               </span>
-                              <Badge
-                                variant="secondary"
-                                className="text-xs bg-blue-100 text-blue-800 border-gray-300"
-                              >
-                                {olympiad.classtypes.length} анги
-                              </Badge>
                             </div>
                             <div className="flex flex-wrap gap-1">
                               {olympiad.classtypes
@@ -584,7 +547,7 @@ const AllOlympiadsPage = () => {
                                   <Badge
                                     key={classType.id}
                                     variant="outline"
-                                    className="text-xs bg-green-100 text-green-800 border-gray-300"
+                                    className="text-xs bg-gray-200 text-black border-gray-300"
                                   >
                                     {getGradeNumber(classType.classYear)}-р анги
                                   </Badge>
@@ -605,7 +568,7 @@ const AllOlympiadsPage = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="flex-1 bg-orange-500 "
+                          className="flex-1 bg-[#ff8400] text-white"
                           onClick={() =>
                             router.push(`/olympiad/${olympiad.id}`)
                           }

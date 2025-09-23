@@ -20,14 +20,14 @@ import { useStudentRanking } from "@/hooks/useStudentRanking";
 
 interface StudentStaggeredMenuProps {
   activeTab:
-    | "profile"
-    | "olympiads"
-    | "participated"
-    | "tournaments"
-    | "results"
-    | "achievements"
-    | "mandats"
-    | "settings";
+  | "profile"
+  | "olympiads"
+  | "participated"
+  | "tournaments"
+  | "results"
+  | "achievements"
+  | "mandats"
+  | "settings";
   onTabChange: (
     tab:
       | "profile"
@@ -44,9 +44,8 @@ interface StudentStaggeredMenuProps {
 }
 
 const getTabIcon = (tab: string, isActive: boolean = false) => {
-  const iconClass = `w-6 h-6 transition-colors duration-200 ${
-    isActive ? "text-[#FF8400]" : "text-gray-600"
-  }`;
+  const iconClass = `w-6 h-6 transition-colors duration-200 ${isActive ? "text-[#FF8400]" : "text-gray-600"
+    }`;
 
   switch (tab) {
     case "profile":
@@ -73,21 +72,21 @@ const getTabIcon = (tab: string, isActive: boolean = false) => {
 const getTabLabel = (tab: string) => {
   switch (tab) {
     case "profile":
-      return "Profile";
+      return "Профайл";
     case "olympiads":
-      return "Olympiads";
+      return "Олимпиад";
     case "participated":
-      return "Participated";
+      return "Оролцсон";
     case "tournaments":
-      return "Tournaments";
+      return "Тэмцээн";
     case "results":
-      return "Results";
+      return "Дүн хариу ";
     case "achievements":
-      return "Achievements";
+      return "Амжилт";
     case "mandats":
-      return "Mandats";
+      return "Мандат";
     case "settings":
-      return "Settings";
+      return "Тохиргоо";
     default:
       return tab;
   }
@@ -284,11 +283,10 @@ export const StudentStaggeredMenu = ({
                 >
                   <button
                     onClick={() => handleMenuItemClick(tab)}
-                    className={`w-full flex items-center justify-start space-x-4 text-2xl font-medium transition-colors duration-200 py-3 px-4 rounded-lg ${
-                      activeTab === tab
-                        ? "text-[#FF8400] bg-[#FF8400]/10"
-                        : "text-gray-700 hover:text-[#FF8400] hover:bg-gray-50"
-                    }`}
+                    className={`w-full flex items-center justify-start space-x-4 text-2xl font-medium transition-colors duration-200 py-3 px-4 rounded-lg ${activeTab === tab
+                      ? "text-[#FF8400] bg-[#FF8400]/10"
+                      : "text-gray-700 hover:text-[#FF8400] hover:bg-gray-50"
+                      }`}
                     aria-label={`Go to ${getTabLabel(tab)}`}
                   >
                     <span

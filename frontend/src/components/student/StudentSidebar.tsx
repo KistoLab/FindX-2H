@@ -7,14 +7,14 @@ import { useStudentRanking } from "@/hooks/useStudentRanking";
 
 interface StudentSidebarProps {
   activeTab:
-    | "profile"
-    | "olympiads"
-    | "participated"
-    | "tournaments"
-    | "results"
-    | "achievements"
-    | "mandats"
-    | "settings";
+  | "profile"
+  | "olympiads"
+  | "participated"
+  | "tournaments"
+  | "results"
+  | "achievements"
+  | "mandats"
+  | "settings";
   onTabChange: (
     tab:
       | "profile"
@@ -30,9 +30,8 @@ interface StudentSidebarProps {
 }
 
 const getTabIcon = (tab: string, isActive: boolean) => {
-  const iconClass = `w-5 h-5 transition-colors duration-200 ${
-    isActive ? "text-primary-foreground" : "text-muted-foreground"
-  }`;
+  const iconClass = `w-5 h-5 transition-colors duration-200 ${isActive ? "text-primary-foreground" : "text-muted-foreground"
+    }`;
 
   switch (tab) {
     case "profile":
@@ -224,9 +223,9 @@ export const StudentSidebar = ({
           </div>
           <div>
             <h1 className="text-2xl font-bold text-card-foreground">
-              Student Portal
+              Сурагчийн хэсэг
             </h1>
-            <p className="text-muted-foreground text-sm">Olympiad Dashboard</p>
+            <p className="text-muted-foreground text-sm">Олимпиадын самбар</p>
           </div>
         </div>
 
@@ -241,10 +240,10 @@ export const StudentSidebar = ({
         ) : studentError ? (
           <div className="bg-destructive/10 rounded-xl p-4 mb-4 border border-destructive/20">
             <p className="text-sm text-destructive">
-              Error loading student data
+              Сурагчийн мэдээлэл ачаалахад алдаа гарлаа
             </p>
             <p className="text-xs text-destructive/80 mt-1">
-              Please try refreshing the page
+              Хуудсыг дахин ачаалж үзнэ үү
             </p>
           </div>
         ) : student ? (
@@ -268,7 +267,7 @@ export const StudentSidebar = ({
                   {student.name}
                 </h3>
                 <p className="text-xs text-muted-foreground truncate">
-                  {student.school} • Grade {student.class}
+                  {student.school} • {student.class}-р анги
                 </p>
                 <p className="text-xs text-muted-foreground/80 truncate">
                   {student.region}, {getProvinceName(student.province)}
@@ -279,7 +278,7 @@ export const StudentSidebar = ({
         ) : (
           <div className="bg-muted rounded-xl p-4 mb-4">
             <p className="text-sm text-muted-foreground">
-              Student information not available
+              Сурагчийн мэдээлэл олдсонгүй
             </p>
           </div>
         )}
@@ -293,7 +292,7 @@ export const StudentSidebar = ({
                   {currentStudentRank ? `#${currentStudentRank}` : "N/A"}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Current Ranking
+                  Одоогийн эрэмбэ
                 </div>
               </div>
             </div>
@@ -304,7 +303,7 @@ export const StudentSidebar = ({
                     ? student.participatedOlympiads.length
                     : 0}
                 </div>
-                <div className="text-xs text-muted-foreground">Olympiads</div>
+                <div className="text-xs text-muted-foreground">Олимпиад</div>
               </div>
             </div>
           </div>
@@ -318,7 +317,7 @@ export const StudentSidebar = ({
           >
             <div className="text-center">
               <div className="text-sm text-muted-foreground">
-                Olympiads Participated
+                Оролцсон олимпиад
               </div>
             </div>
           </button>
@@ -331,43 +330,43 @@ export const StudentSidebar = ({
           {[
             {
               id: "profile",
-              label: "Profile",
-              description: "View and edit profile",
+              label: "Профайл",
+              description: "Профайл харах, засах",
             },
             {
               id: "olympiads",
-              label: "Olympiads",
-              description: "Browse and register",
+              label: "Олимпиад",
+              description: "Олимпиад харах, бүртгүүлэх",
             },
             {
               id: "participated",
-              label: "Participated",
-              description: "Your registered olympiads",
+              label: "Оролцсон",
+              description: "Бүртгүүлсэн олимпиадууд",
             },
             {
               id: "tournaments",
-              label: "Tournaments",
-              description: "Your registered tournaments",
+              label: "Тэмцээн",
+              description: "Бүртгүүлсэн тэмцээнүүд",
             },
             {
               id: "results",
-              label: "Results",
-              description: "View your scores",
+              label: "Үр дүн",
+              description: "Оноо харах",
             },
             {
               id: "achievements",
-              label: "Achievements",
-              description: "Badges and medals",
+              label: "Амжилт",
+              description: "Одон, медаль",
             },
             {
               id: "mandats",
-              label: "Mandats",
-              description: "Registration documents",
+              label: "Мандат",
+              description: "Бүртгэлийн баримт",
             },
             {
               id: "settings",
-              label: "Settings",
-              description: "Account preferences",
+              label: "Тохиргоо",
+              description: "Хэрэглэгчийн тохиргоо",
             },
           ].map((tab) => (
             <button
@@ -375,31 +374,29 @@ export const StudentSidebar = ({
               onClick={() =>
                 onTabChange(
                   tab.id as
-                    | "profile"
-                    | "olympiads"
-                    | "participated"
-                    | "tournaments"
-                    | "results"
-                    | "achievements"
-                    | "mandats"
-                    | "settings"
+                  | "profile"
+                  | "olympiads"
+                  | "participated"
+                  | "tournaments"
+                  | "results"
+                  | "achievements"
+                  | "mandats"
+                  | "settings"
                 )
               }
-              className={`w-full flex items-center justify-start space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                activeTab === tab.id
+              className={`w-full flex items-center justify-start space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${activeTab === tab.id
                   ? "bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-              }`}
+                }`}
             >
               {getTabIcon(tab.id, activeTab === tab.id)}
               <div className="flex-1 text-left">
                 <div className="font-medium">{tab.label}</div>
                 <div
-                  className={`text-xs ${
-                    activeTab === tab.id
+                  className={`text-xs ${activeTab === tab.id
                       ? "text-primary-foreground/80"
                       : "text-muted-foreground/80"
-                  }`}
+                    }`}
                 >
                   {tab.description}
                 </div>
@@ -412,9 +409,9 @@ export const StudentSidebar = ({
       {/* Footer */}
       <div className="p-8 pt-6 border-t border-border">
         <div className="text-center">
-          <p className="text-muted-foreground text-sm">FindX Olympiad System</p>
+          <p className="text-muted-foreground text-sm">FindX Олимпиадын систем</p>
           <p className="text-muted-foreground/80 text-xs mt-1">
-            Student Portal v1.0.0
+            Сурагчийн хэсэг v1.0.0
           </p>
         </div>
       </div>

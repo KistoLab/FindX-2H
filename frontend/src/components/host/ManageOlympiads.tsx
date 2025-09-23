@@ -104,7 +104,7 @@ export const ManageOlympiads = ({ organizerId, olympiads, onRefetch }: ManageOly
       [OlympiadStatus.Draft]: "Идэвхгүй",
       [OlympiadStatus.UnderReview]: "Шалгагдаж байна",
       [OlympiadStatus.Open]: "Нээлттэй",
-      [OlympiadStatus.Closed]: "Хаагдсан",
+      [OlympiadStatus.Closed]: "Бүртгэл дууссан",
       [OlympiadStatus.Finished]: "Дууссан",
     };
     return statusMap[status] || status;
@@ -195,7 +195,7 @@ export const ManageOlympiads = ({ organizerId, olympiads, onRefetch }: ManageOly
                 <SelectItem value={OlympiadStatus.Draft}>Идэвхгүй</SelectItem>
                 <SelectItem value={OlympiadStatus.UnderReview}>Шалгагдаж байна</SelectItem>
                 <SelectItem value={OlympiadStatus.Open}>Нээлттэй</SelectItem>
-                <SelectItem value={OlympiadStatus.Closed}>Хаагдсан</SelectItem>
+                <SelectItem value={OlympiadStatus.Closed}>Бүртгэл дууссан</SelectItem>
                 <SelectItem value={OlympiadStatus.Finished}>Дууссан</SelectItem>
               </SelectContent>
             </Select>
@@ -318,7 +318,7 @@ export const ManageOlympiads = ({ organizerId, olympiads, onRefetch }: ManageOly
                   <SelectItem value={OlympiadStatus.Draft}>Идэвхгүй</SelectItem>
                   <SelectItem value={OlympiadStatus.UnderReview}>Шалгагдаж байна</SelectItem>
                   <SelectItem value={OlympiadStatus.Open}>Нээлттэй</SelectItem>
-                  <SelectItem value={OlympiadStatus.Closed}>Хаагдсан</SelectItem>
+                  <SelectItem value={OlympiadStatus.Closed}>Бүртгэл дууссан</SelectItem>
                   <SelectItem value={OlympiadStatus.Finished}>Дууссан</SelectItem>
                 </SelectContent>
               </Select>

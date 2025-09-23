@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Trophy, Lock, Shield, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   useGetAllStudentQuery,
   useAllOlympiadsQuery,
@@ -9,6 +10,7 @@ import {
 import { useMemo } from "react";
 
 export const Section = () => {
+  const router = useRouter();
   const { data: studentsData } = useGetAllStudentQuery();
   const { data: olympiadsData } = useAllOlympiadsQuery();
   const { data: organizersData } = useGetAllOrganizersQuery();
@@ -28,8 +30,8 @@ export const Section = () => {
     const topPerformer =
       students.length > 0
         ? students.reduce((top, student) =>
-            student.ranking > top.ranking ? student : top
-          )
+          student.ranking > top.ranking ? student : top
+        )
         : null;
 
     return {
@@ -39,6 +41,12 @@ export const Section = () => {
       topPerformer,
     };
   }, [studentsData, olympiadsData, organizersData]);
+
+  const handleTopPerformerClick = () => {
+    if (stats.topPerformer?.id) {
+      router.push(`/student/${stats.topPerformer.id}`);
+    }
+  };
 
   return (
     <div className="px-6 pt-8 pb-16">
@@ -93,7 +101,10 @@ export const Section = () => {
                 />
               </div>
 
-              <div className="absolute top-6 right-6 bg-white  rounded-xl px-4 py-3">
+              <div
+                className="absolute top-6 right-6 bg-white shadow-lg  rounded-xl px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                onClick={handleTopPerformerClick}
+              >
                 <div className="flex items-center gap-2 text-black-600">
                   <Trophy className="w-5 h-5 text-[#ff8400]" />
                   <div>
@@ -107,27 +118,7 @@ export const Section = () => {
                 </div>
               </div>
 
-              <div className="absolute bottom-6 left-6 bg-white  rounded-xl px-4 py-3">
-                <div className="flex items-center gap-4 text-black-600">
-                  <div className="text-center">
-                    <div className="font-bold text-lg text-[#ff8400]">
-                      {stats.activeStudents > 0 ? "100%" : "0%"}
-                    </div>
-                    <div className="text-xs text-black-600">
-                      Идэвхитэй сурагч
-                    </div>
-                  </div>
-                  <div className="w-px h-8 bg-gray-600"></div>
-                  <div className="text-center">
-                    <div className="flex items-center gap-1 text-black-600">
-                      <span className="font-bold text-lg text-[#ff8400]">
-                        {stats.competitionsHeld > 0 ? "5.0" : "0.0"}
-                      </span>
-                    </div>
-                    <div className="text-xs text-black-600">Үнэлгээ</div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
