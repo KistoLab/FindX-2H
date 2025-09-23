@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, TrendingDown, Users } from "lucide-react";
@@ -95,11 +94,9 @@ export const CompleteRank = () => {
                 </div>
 
                 <div className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden">
-                  <Image
+                  <img
                     src={person.profilePicture || "/images/photo.avif"}
                     alt={`${person.name} profile`}
-                    width={64}
-                    height={64}
                     className="rounded-full object-cover w-full h-full"
                   />
                 </div>

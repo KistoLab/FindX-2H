@@ -234,20 +234,24 @@ const HostPage = () => {
 
   // StaggeredMenu configuration
   const menuItems = [
-    { label: "Profile", ariaLabel: "View host profile", link: "#profile" },
     {
-      label: "Create Olympiad",
-      ariaLabel: "Create new olympiad",
+      label: "Профайл",
+      ariaLabel: "Зохион байгуулагчийн профайлыг харах",
+      link: "#profile",
+    },
+    {
+      label: "Олимпиад үүсгэх",
+      ariaLabel: "Шинэ олимпиад үүсгэх",
       link: "#create",
     },
     {
-      label: "Manage Olympiads",
-      ariaLabel: "Manage existing olympiads",
+      label: "Олимпиад засах",
+      ariaLabel: "Одоо байгаа олимпиадуудыг удирдах",
       link: "#manage",
     },
     {
-      label: "Manage Results",
-      ariaLabel: "Manage olympiad results",
+      label: "Дүн удирдах",
+      ariaLabel: "Олимпиадын дүнг удирдах",
       link: "#results",
     },
   ];
@@ -326,30 +330,15 @@ const HostPage = () => {
 
   return (
     <>
-      <div className="min-h-screen relative bg-white">
-        {/* Notebook Paper Background */}
-        <div className="absolute inset-0 bg-white"></div>
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-              linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)
-            `,
-            backgroundSize: "20px 20px",
-            backgroundPosition: "0 0, 0 0",
-          }}
-        ></div>
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #d1d5db 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 100%",
-            backgroundPosition: "0 0",
-          }}
-        ></div>
+      <div
+        className="min-h-screen relative"
+        style={{
+          backgroundImage: `linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+          linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+      >
+        {/* Landing Page Grid Background */}
 
         {/* StaggeredMenu Navigation */}
         <StaggeredMenu
@@ -387,7 +376,7 @@ const HostPage = () => {
             {/* Header */}
             <div className="mb-8 bg-white rounded-2xl p-6 border border-gray-200 relative overflow-hidden">
               <div className="flex items-center space-x-4 mb-4 pl-8">
-                <span className="text-muted-foreground">Home</span>
+                <span className="text-muted-foreground">Нүүр</span>
                 <svg
                   className="w-4 h-4 text-muted-foreground"
                   fill="none"
@@ -402,28 +391,28 @@ const HostPage = () => {
                   />
                 </svg>
                 <span className="text-foreground font-medium">
-                  {activeTab === "profile" && "Profile"}
-                  {activeTab === "create" && "Create Olympiad"}
-                  {activeTab === "manage" && "Manage Olympiads"}
-                  {activeTab === "results" && "Manage Results"}
+                  {activeTab === "profile" && "Профайл"}
+                  {activeTab === "create" && "Олимпиад үүсгэх"}
+                  {activeTab === "manage" && "Олимпиад засах"}
+                  {activeTab === "results" && "Дүн удирдах"}
                 </span>
               </div>
 
               <h1 className="text-4xl font-bold mb-2 text-black pl-8">
-                {activeTab === "profile" && "Profile"}
-                {activeTab === "create" && "Create Olympiad"}
-                {activeTab === "manage" && "Manage Olympiads"}
-                {activeTab === "results" && "Manage Results"}
+                {activeTab === "profile" && "Профайл"}
+                {activeTab === "create" && "Олимпиад үүсгэх"}
+                {activeTab === "manage" && "Олимпиад засах"}
+                {activeTab === "results" && "Дүн удирдах"}
               </h1>
               <p className="text-lg text-muted-foreground pl-8">
                 {activeTab === "profile" &&
-                  "View and manage your host organization profile"}
+                  "Зохион байгуулагчийн профайлыг харах, засах"}
                 {activeTab === "create" &&
-                  "Create and submit new olympiad requests for approval"}
+                  "Шинэ олимпиадын хүсэлт үүсгэж, баталгаажуулалтад илгээх"}
                 {activeTab === "manage" &&
-                  "View, edit, and manage your existing olympiads"}
+                  "Одоо байгаа олимпиадуудыг харах, засах, удирдах"}
                 {activeTab === "results" &&
-                  "View, export, and manage results for your olympiads"}
+                  "Олимпиадын дүнг харах, экспорт хийх, удирдах"}
               </p>
             </div>
 

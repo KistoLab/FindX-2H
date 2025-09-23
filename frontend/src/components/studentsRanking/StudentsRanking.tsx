@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useStudentRanking } from "@/hooks/useStudentRanking";
 import { useAllOlympiadsQuery } from "@/generated";
 import { getRankingTypeDisplayName } from "@/utils/rankingUtils";
@@ -177,7 +176,8 @@ export const StudentsRanking = () => {
         selectedCity === "Бүх анги" || userClassMongolian === selectedCity;
 
       const matchesProvince =
-        selectedOrg === "Бүх аймаг болон дүүрэг" || user.province === selectedOrg;
+        selectedOrg === "Бүх аймаг болон дүүрэг" ||
+        user.province === selectedOrg;
 
       return matchesName && matchesClass && matchesProvince;
     })
@@ -337,16 +337,14 @@ export const StudentsRanking = () => {
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
                           {user.profilePicture &&
-                            user.profilePicture.trim() !== "" &&
-                            user.profilePicture !== ".////" &&
-                            (user.profilePicture.startsWith("http") ||
-                              user.profilePicture.startsWith("/") ||
-                              user.profilePicture.startsWith("data:")) ? (
-                            <Image
+                          user.profilePicture.trim() !== "" &&
+                          user.profilePicture !== ".////" &&
+                          (user.profilePicture.startsWith("http") ||
+                            user.profilePicture.startsWith("/") ||
+                            user.profilePicture.startsWith("data:")) ? (
+                            <img
                               src={user.profilePicture}
                               alt={user.name}
-                              width={48}
-                              height={48}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 e.currentTarget.style.display = "none";
@@ -357,15 +355,16 @@ export const StudentsRanking = () => {
                             />
                           ) : null}
                           <span
-                            className={` font-semibold text-lg ${user.profilePicture &&
+                            className={` font-semibold text-lg ${
+                              user.profilePicture &&
                               user.profilePicture.trim() !== "" &&
                               user.profilePicture !== ".////" &&
                               (user.profilePicture.startsWith("http") ||
                                 user.profilePicture.startsWith("/") ||
                                 user.profilePicture.startsWith("data:"))
-                              ? "hidden"
-                              : ""
-                              }`}
+                                ? "hidden"
+                                : ""
+                            }`}
                           >
                             {user.name?.charAt(0)?.toUpperCase()}
                           </span>
@@ -473,7 +472,7 @@ export const StudentsRanking = () => {
           <div className="mt-6 flex justify-center">
             <Button
               variant="outline"
-              className="px-6 py-2 text-black border-gray-300 hover:bg-gray-200"
+              className="px-6 py-2 text-black bg-white border-gray-300 hover:bg-gray-200"
               onClick={handleLoadMore}
             >
               Дараах үзэх

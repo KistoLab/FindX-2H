@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { Trophy, Lock, Shield, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -30,8 +29,8 @@ export const Section = () => {
     const topPerformer =
       students.length > 0
         ? students.reduce((top, student) =>
-          student.ranking > top.ranking ? student : top
-        )
+            student.ranking > top.ranking ? student : top
+          )
         : null;
 
     return {
@@ -92,11 +91,9 @@ export const Section = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="w-[800px] h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                <Image
+                <img
                   src="/images/section_image_2.png"
                   alt="Students collaborating"
-                  width={600}
-                  height={600}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -117,8 +114,6 @@ export const Section = () => {
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>

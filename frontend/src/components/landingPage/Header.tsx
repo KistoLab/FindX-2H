@@ -7,7 +7,6 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export const Header = () => {
   const router = useRouter();
@@ -37,12 +36,10 @@ export const Header = () => {
           <span className="text-black group-hover:text-gray-600 transition-colors font-playfair-display font-semibold">
             Find
           </span>
-          <Image
+          <img
             src="/images/Remove.png"
             alt="logo"
-            width={40}
-            height={40}
-            className="absolute top-0.5 right-[-30px]"
+            className="absolute top-0.5 right-[-30px] w-10 h-10"
           />
         </div>
 

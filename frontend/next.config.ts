@@ -2,22 +2,29 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "randomuser.me",
-        port: "",
-        pathname: "/api/portraits/**",
-      },
-      {
-        protocol: "http",
-        hostname: "avatar.png",
+        hostname: "assets.grok.com",
         port: "",
         pathname: "/**",
       },
       {
         protocol: "https",
-        hostname: "assets.grok.com",
+        hostname: "work.fife.usercontent.google.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
         port: "",
         pathname: "/**",
       },

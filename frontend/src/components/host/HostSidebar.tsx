@@ -12,8 +12,9 @@ interface HostSidebarProps {
 }
 
 const getTabIcon = (tab: string, isActive: boolean) => {
-  const iconClass = `w-5 h-5 transition-colors duration-200 ${isActive ? "text-primary-foreground" : "text-muted-foreground"
-    }`;
+  const iconClass = `w-5 h-5 transition-colors duration-200 ${
+    isActive ? "text-primary-foreground" : "text-muted-foreground"
+  }`;
 
   switch (tab) {
     case "create":
@@ -77,24 +78,24 @@ const HostSidebar: React.FC<HostSidebarProps> = ({
   const menuItems = [
     {
       label: "Олимпиад үүсгэх",
-      ariaLabel: "Navigate to create olympiad page",
+      ariaLabel: "Олимпиад үүсгэх хуудас руу шилжих",
       link: "#create",
     },
     {
       label: "Олимпиад засах",
-      ariaLabel: "Navigate to manage olympiads page",
+      ariaLabel: "Олимпиадуудыг удирдах хуудас руу шилжих",
       link: "#manage",
     },
     {
       label: "Дүн оруулах",
-      ariaLabel: "Navigate to manage results page",
+      ariaLabel: "Дүн удирдах хуудас руу шилжих",
       link: "#results",
     },
   ];
 
   return (
     <div className="w-80 bg-card border-r border-border text-card-foreground flex flex-col h-screen fixed left-0 top-0 z-50">
-      {/* Header */}
+      {/* Толгой */}
       <div className="p-8 pb-6">
         <div className="flex items-center space-x-3 mb-4">
           <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -114,13 +115,15 @@ const HostSidebar: React.FC<HostSidebarProps> = ({
           </div>
           <div>
             <h1 className="text-2xl font-bold text-card-foreground">
-              Хост портал
+              Зохион байгуулагчийн портал
             </h1>
-            <p className="text-muted-foreground text-sm">Олимпиадын удирдлага</p>
+            <p className="text-muted-foreground text-sm">
+              Олимпиадын удирдлага
+            </p>
           </div>
         </div>
 
-        {/* Host Info */}
+        {/* Зохион байгуулагчийн мэдээлэл */}
         <div className="bg-muted rounded-xl p-4 mb-4 border border-border">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
@@ -142,30 +145,26 @@ const HostSidebar: React.FC<HostSidebarProps> = ({
           </div>
         </div>
 
-        {/* Stats */}
+        {/* Статистик */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="bg-muted rounded-xl p-3 border border-border">
             <div className="text-center">
               <div className="text-3xl font-bold text-foreground">
                 {olympiadCount}
               </div>
-              <div className="text-xs text-muted-foreground">
-                Нийт олимпиад
-              </div>
+              <div className="text-xs text-muted-foreground">Нийт олимпиад</div>
             </div>
           </div>
           <div className="bg-muted rounded-xl p-3 border border-border">
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary">
-                1
-              </div>
+              <div className="text-2xl font-bold text-primary">1</div>
               <div className="text-xs text-muted-foreground">Байгууллага</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* Навигаци */}
       <nav className="flex-1 px-8 pb-8 overflow-y-auto">
         <div className="space-y-2">
           {[
@@ -188,23 +187,23 @@ const HostSidebar: React.FC<HostSidebarProps> = ({
             <button
               key={tab.id}
               onClick={() =>
-                onTabChange(
-                  tab.id as "create" | "manage" | "results",
-                )
+                onTabChange(tab.id as "create" | "manage" | "results")
               }
-              className={`w-full flex items-center justify-start space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${activeTab === tab.id
-                ? "bg-primary text-primary-foreground shadow-lg"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
+              className={`w-full flex items-center justify-start space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                activeTab === tab.id
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              }`}
             >
               {getTabIcon(tab.id, activeTab === tab.id)}
               <div className="flex-1 text-left">
                 <div className="font-medium">{tab.label}</div>
                 <div
-                  className={`text-xs ${activeTab === tab.id
-                    ? "text-primary-foreground/80"
-                    : "text-muted-foreground/80"
-                    }`}
+                  className={`text-xs ${
+                    activeTab === tab.id
+                      ? "text-primary-foreground/80"
+                      : "text-muted-foreground/80"
+                  }`}
                 >
                   {tab.description}
                 </div>
@@ -214,12 +213,14 @@ const HostSidebar: React.FC<HostSidebarProps> = ({
         </div>
       </nav>
 
-      {/* Footer */}
+      {/* Хөл */}
       <div className="p-8 pt-6 border-t border-border">
         <div className="text-center">
-          <p className="text-muted-foreground text-sm">FindX Олимпиадын систем</p>
+          <p className="text-muted-foreground text-sm">
+            FindX Олимпиадын систем
+          </p>
           <p className="text-muted-foreground/80 text-xs mt-1">
-            Хост портал v1.0.0
+            Зохион байгуулагчийн портал v1.0.0
           </p>
         </div>
       </div>
