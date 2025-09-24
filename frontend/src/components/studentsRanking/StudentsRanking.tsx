@@ -181,7 +181,36 @@ export const StudentsRanking = () => {
 
       return matchesName && matchesClass && matchesProvince;
     })
-    .sort((a, b) => b.totalMedals - a.totalMedals);
+    .sort((a, b) => {
+      // Use the same sorting logic as the landing page for consistency
+      // Оноо (их байх тусам дээр)
+      if (a.ranking !== b.ranking) {
+        return b.ranking - a.ranking;
+      }
+
+      // Алтан медаль
+      if (a.goldCount !== b.goldCount) {
+        return b.goldCount - a.goldCount;
+      }
+
+      // Мөнгөн медаль
+      if (a.silverCount !== b.silverCount) {
+        return b.silverCount - a.silverCount;
+      }
+
+      // Хүрэл медаль
+      if (a.bronzeCount !== b.bronzeCount) {
+        return b.bronzeCount - a.bronzeCount;
+      }
+
+      // Нийт медаль
+      if (a.totalMedals !== b.totalMedals) {
+        return b.totalMedals - a.totalMedals;
+      }
+
+      // Нэрийн дарааллаар
+      return a.name.localeCompare(b.name);
+    });
 
   const displayedUsers = filteredUsers.slice(0, displayCount);
   const hasMoreUsers = displayCount < filteredUsers.length;
